@@ -65,9 +65,9 @@
 
 ;; load core modules
 (require 'lg-packages)
-;; (require 'lg-ui)
-;; (require 'lg-core)
-;; (require 'lg-key)
+(require 'lg-ui)
+(require 'lg-core)
+(require 'lg-key)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

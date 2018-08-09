@@ -30,4 +30,24 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; custom ui
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-linum-mode 1)
+(setq inhibit-splash-screen 1)
+;; fullscreen on startup
+(setq initial-frame-alist (quote ((fullscreen . maximized))))
+;; highlight current line
+(global-hl-line-mode 1)
+
+;; theme
+(when (window-system)
+  (use-package arjen-grey-theme
+               :ensure t
+               :config
+               (load-theme 'arjen-grey t)))
+
+(when (window-system)
+  (set-default-font "Monaco"))
+
 (provide 'lg-ui)

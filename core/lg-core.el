@@ -30,4 +30,24 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; record recent files
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-item 10)
+
+;; don't backup file
+(setq make-backup-files nil)
+
+(use-package command-log-mode
+             :ensure t)
+
+(defun live-coding ()
+  (interactive)
+  (set-face-attribute 'default nil :font "Monaco-14")
+  (add-hook 'prog-mode-hook 'command-log-mode))
+
+(defun normal-coding ()
+  (interactive)
+  (set-face-attribute 'default nil :font "Monaco-14"))
+
 (provide 'lg-core)
