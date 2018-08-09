@@ -29,7 +29,9 @@
 ;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
+
 ;; a secure emacs environment
+;; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 (require 'cl)
 (setq tls-checktruct t)
 
@@ -66,24 +68,53 @@
 
 (require 'package)
 
-(defvar gnu '("gnu" . "https://elpa.gnu.org/packages/"))
-(defvar melpa '("melpa" . "https://melpa.org/packages/"))
-(defvar melpa-stable '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(defvar melpa '("melpa" . "http://melpa.org/packages/"))
+(defvar melpa-stable '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (defvar org-elpa '("org" . "http://orgmode.org/elpa/"))
 
 ;; add marmalade to package repos
 (setq package-archives nil)
 (add-to-list 'package-archives melpa-stable t)
 (add-to-list 'package-archives melpa t)
-(add-to-list 'package-archives gnu t)
 (add-to-list 'package-archives org-elpa t)
 
 ;; ini packages
 (package-initialize)
 
-(unless (and (file-exists-p (concat lg-dir "elpa/archives/gnu"))
+(unless (and (file-exists-p (concat lg-dir "elpa/archives/org-elpa"))
              (file-exists-p (concat lg-dir "elpa/archives/melpa"))
              (file-exists-p (concat lg-dir "elpa/archives/melpa-stable")))
   (package-refresh-contents))
+
+;; define packages-install function
+(defun packages-install (&rest packages)
+  (message "running packages-install")
+  (mapc (lambda (package)
+          (let ((name (car package))
+                (repo (cdr package)))
+            (when (not (package-installed-p name))
+              (let ((package-archives (list repo)))
+                (package-initialize)
+                (package-install name)))))
+        packages)
+  (package-initialize)
+  (delete-other-windows))
+
+;; install missing packages
+(defun init--install-packages ()
+  (message "Lets install some packages")
+  (packages-install
+   ;; Since use-package this is the only entry here
+   ;; ALWAYS try to use use-package!
+   (cons 'use-package melpa)))
+
+(condition-case nil
+    (init--install-packages)
+  (error
+   (package-refresh-contents)
+   (init--install-packages)))
+
+;; install use-package plugin
+(package-install 'use-package)
 
 (provide 'lg-packages)
