@@ -34,4 +34,7 @@
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'hyper)
 
+;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
 (provide 'lg-key)

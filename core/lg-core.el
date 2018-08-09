@@ -38,6 +38,28 @@
 ;; don't backup file
 (setq make-backup-files nil)
 
+;; dimish modes
+(use-package diminish
+             :ensure t)
+
+;; counsel
+(use-package counsel
+             :ensure t
+             :bind
+             (("M-x" . counsel-M-x)
+              ("M-y" . counsel-yank-pop)
+              :map ivy-minibuffer-map
+              ("M-y" . ivy-next-line)))
+
+;; bookmarks
+(use-package bm
+             :ensure t
+             :bind 
+             (("C-c =" . bm-toggle)
+              ("C-c [" . bm-previous)
+              ("C-c ]" . bm-next)))
+
+
 (use-package command-log-mode
              :ensure t)
 
