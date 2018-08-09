@@ -71,27 +71,30 @@
 
 (defvar lg-gtd-inbox-file (concat lg-gtd-dir "/inbox.org"))
 (defvar lg-gtd-gtd-file (concat lg-gtd-dir "/gtd.org"))
-(defvar lg-gtd-tickler-file (concat lg-gtd-dir "/tickler.org"))
+(defvar lg-gtd-note-file (concat lg-gtd-dir "/note.org"))
 (defvar lg-gtd-someday-file (concat lg-gtd-dir "/someday.org"))
 
-(setq org-agenda-files '(lg-gtd-inbox-file
-                          lg-gtd-gtd-file
-                          lg-gtd-tickler-file))
+(add-to-list 'org-agenda-files lg-gtd-gtd-file)
+(add-to-list 'org-agenda-files lg-gtd-inbox-file)
+(add-to-list 'org-agenda-files lg-gtd-note-file)
 
 (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline lg-gtd-inbox-file "Tasks")
-                               "* TODO %i%?")
-                              ("T" "Tickler" entry
-                               (file+headline lg-gtd-tickler-file "Tickler")
-                               "* %i%? \n %U")))
+                               (file+headline lg-gtd-inbox-file "任务")
+                               "* TODO %?\n  %u\n  %a")
+                              ("n" "Note" entry
+                               (file+headline lg-gtd-note-file "笔记")
+                               "* %^{heading} %t %^g\n  %?\n")
+                              ("i" "Inbox" entry
+                               (file+headline lg-gtd-inbox-file "Inbox")
+                               "* %U - %^{heading} %^g\n %?\n")))
 
 (setq org-refile-targets '((lg-gtd-gtd-file :maxlevel . 3)
                            (lg-gtd-tickler-file :maxlevel . 2)
                            (lg-gtd-someday-file :level . 1)))
 
 (setq org-agenda-custom-commands
-        '(("b" "Build fun things" tags-todo "@bft"
-           ((org-agenda-overriding-header "BuildFunThings")
+        '(("b" "liubang" tags-todo "@liubang"
+           ((org-agenda-overriding-header "Liubang")
             (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
 
 (defun my-org-agenda-skip-all-siblings-but-first ()
