@@ -68,12 +68,14 @@
 
 (require 'package)
 
-(defvar melpa '("melpa" . "http://melpa.org/packages/"))
-(defvar melpa-stable '("melpa-stable" . "http://stable.melpa.org/packages/"))
-(defvar org-elpa '("org" . "http://orgmode.org/elpa/"))
+(defvar gnu '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"))
+(defvar melpa '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+(defvar melpa-stable '("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/"))
+(defvar org-elpa '("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/"))
 
 ;; add marmalade to package repos
 (setq package-archives nil)
+(add-to-list 'package-archives gnu)
 (add-to-list 'package-archives melpa-stable t)
 (add-to-list 'package-archives melpa t)
 (add-to-list 'package-archives org-elpa t)
