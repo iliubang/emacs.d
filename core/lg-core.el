@@ -1,0 +1,2 @@
+
+(provide 'lg-core)
