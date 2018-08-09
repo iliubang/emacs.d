@@ -1,4 +1,4 @@
-;;; lg-core.el
+;;; lg-better.el
 ;; 
 ;; Copyright (c) 2018 Liubang
 ;; 
@@ -30,6 +30,15 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; Always load newest byte code.
+(setq load-prefer-newer t)
+
+;; the frequency of GC
+(setq gc-cons-threshold 50000000)
+
+;; warn when opening files bigger then 100MB
+(setq large-file-warning-threshold 100000000)
+
 ;; record recent files
 (require 'recentf)
 (recentf-mode 1)
@@ -38,6 +47,16 @@
 ;; don't backup file
 (setq make-backup-files nil)
 
+;; set key on macos
+(setq mac-option-modifier 'none)
+(setq mac-command-modifier 'meta)
+(setq ns-function-modifier 'hyper)
+
+;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
+;; some packages to enhance emacs
+;;
 ;; dimish modes
 (use-package diminish
              :ensure t)
@@ -50,6 +69,43 @@
               ("M-y" . counsel-yank-pop)
               :map ivy-minibuffer-map
               ("M-y" . ivy-next-line)))
+
+;; swiper
+(use-package swiper
+             :pin melpa-stable
+             :diminish ivy-mode
+             :ensure t
+             :bind*
+             (("C-s" . swiper)
+              ("C-c C-r" . ivy-resume)
+              ("C-x C-f" . counsel-find-file)
+              ("C-c h f" . counsel-describe-function)
+              ("C-c h v" . counsel-describe-variable)
+              ("C-c i u" . counsel-unicode-char)
+              ("M-i" . counsel-imenu)
+              ("C-c g" . counsel-git)
+              ("C-c j" . counsel-git-grep)
+              ("C-c k" . counsel-ag))
+             :config
+             (progn
+               (ivy-mode 1)
+               (setq ivy-use-virtual-buffers t)
+               (define-key read-expression-map (kbd "C-r") #'counsel-expression-history)
+               (ivy-set-actions
+                 'counsel-find-file
+                 '(("d" (lambda (x) (delete-file (expand-file-name x)))
+                    "delete")))
+               (ivy-set-actions
+                 'ivy-switch-buffer
+                 '(("k" (lambda (x) (kill-buffer x)
+                          (ivy--reset-state ivy-last))
+                    "kill")
+                   ("j" ivy--switch-buffer-other-window-action
+                    "other window")))))
+
+(use-package ivy-hydra
+             :ensure t)
+
 
 ;; bookmarks
 (use-package bm
@@ -65,11 +121,11 @@
 
 (defun live-coding ()
   (interactive)
-  (set-face-attribute 'default nil :font "Monaco-14")
+  (set-face-attribute 'default nil :font "Monaco-12")
   (add-hook 'prog-mode-hook 'command-log-mode))
 
 (defun normal-coding ()
   (interactive)
-  (set-face-attribute 'default nil :font "Monaco-14"))
+  (set-face-attribute 'default nil :font "Monaco-12"))
 
-(provide 'lg-core)
+(provide 'lg-better)

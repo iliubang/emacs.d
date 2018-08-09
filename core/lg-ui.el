@@ -48,6 +48,6 @@
                (load-theme 'arjen-grey t)))
 
 (when (window-system)
-  (set-default-font "Monaco-14"))
+  (set-default-font "Monaco-12"))
 
 (provide 'lg-ui)
