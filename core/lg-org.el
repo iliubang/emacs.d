@@ -74,19 +74,18 @@
 (defvar lg-gtd-note-file (concat lg-gtd-dir "/note.org"))
 (defvar lg-gtd-someday-file (concat lg-gtd-dir "/someday.org"))
 
-(add-to-list 'org-agenda-files lg-gtd-gtd-file)
-(add-to-list 'org-agenda-files lg-gtd-inbox-file)
-(add-to-list 'org-agenda-files lg-gtd-note-file)
+(setq org-agenda-files nil)
+(add-to-list 'org-agenda-files lg-gtd-dir)
 
 (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                (file+headline lg-gtd-inbox-file "任务")
                                "* TODO %?\n  %u\n  %a")
                               ("n" "Note" entry
                                (file+headline lg-gtd-note-file "笔记")
-                               "* %^{heading} %t %^g\n  %?\n")
+                               "* %^{标题} %t %^g\n  %?\n")
                               ("i" "Inbox" entry
                                (file+headline lg-gtd-inbox-file "Inbox")
-                               "* %U - %^{heading} %^g\n %?\n")))
+                               "* %U - %^{标题} %^g\n %?\n")))
 
 (setq org-refile-targets '((lg-gtd-gtd-file :maxlevel . 3)
                            (lg-gtd-tickler-file :maxlevel . 2)
