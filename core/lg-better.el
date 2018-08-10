@@ -30,6 +30,9 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; global company
+(setq global-company-mode t)
+
 ;; Always load newest byte code.
 (setq load-prefer-newer t)
 
@@ -83,14 +86,13 @@
               ("C-c h v" . counsel-describe-variable)
               ("C-c i u" . counsel-unicode-char)
               ("M-i" . counsel-imenu)
-              ("C-c g" . counsel-git)
-              ("C-c j" . counsel-git-grep)
+              ("C-x l" . counsel-locate)
               ("C-c k" . counsel-ag))
              :config
              (progn
                (ivy-mode 1)
                (setq ivy-use-virtual-buffers t)
-               (define-key read-expression-map (kbd "C-r") #'counsel-expression-history)
+               (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
                (ivy-set-actions
                  'counsel-find-file
                  '(("d" (lambda (x) (delete-file (expand-file-name x)))
@@ -127,5 +129,10 @@
 (defun normal-coding ()
   (interactive)
   (set-face-attribute 'default nil :font "Monaco-12"))
+
+(use-package avy
+             :ensure t
+             :bind 
+             ("C-c j" . avy-goto-word-or-subword-1))
 
 (provide 'lg-better)
