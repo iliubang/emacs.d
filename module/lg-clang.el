@@ -63,9 +63,15 @@
              (global-semantic-stickyfunc-mode 1)
              (semantic-mode 1))
 
+(use-package clang-format
+             :ensure t
+             :config
+             (global-set-key (kbd "C-c i") 'clang-format-region)
+             (global-set-key (kbd "C-c u") 'clang-format-buffer))
+
+
 (defun liubang/cedet-hook ()
   (setq c-default-style "linux")
-  (setq tab-width 4)
   (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
   (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
 
