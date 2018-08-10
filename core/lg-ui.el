@@ -51,4 +51,12 @@
 (when (window-system)
   (set-default-font "Hack-13"))
 
+;; dashboard
+(use-package dashboard
+             :ensure t
+             :config
+             (setq show-week-agenda-p t)
+             (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
+             (dashboard-setup-startup-hook))
+
 (provide 'lg-ui)
