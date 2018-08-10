@@ -64,25 +64,5 @@
 (require 'lg-go)
 (require 'lg-clang)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("/Users/liubang/.emacs.d/gtd/inbox.org")))
- '(package-selected-packages (quote (use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-document-title ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium" :height 1.5 :underline nil))))
- '(org-level-1 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium" :height 1.75))))
- '(org-level-2 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium" :height 1.5))))
- '(org-level-3 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium" :height 1.25))))
- '(org-level-4 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium" :height 1.1))))
- '(org-level-5 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium"))))
- '(org-level-6 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium"))))
- '(org-level-7 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium"))))
- '(org-level-8 ((t (:inherit default :weight bold :foreground "#bdc3ce" :font "Operator Mono Medium")))))
-(put 'upcase-region 'disabled nil)
+(setq custom-file (expand-file-name "custom.el" lg-core-dir))
+(load custom-file :no-error :no-message)

@@ -77,12 +77,12 @@
 ;; agenda toto keywords
 (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
-(defvar lg-gtd-inbox-file (concat lg-gtd-dir "/inbox.org"))
 (defvar lg-gtd-gtd-file (concat lg-gtd-dir "/gtd.org"))
+(defvar lg-gtd-inbox-file (concat lg-gtd-dir "/inbox.org"))
 (defvar lg-gtd-note-file (concat lg-gtd-dir "/note.org"))
 
-(setq org-agenda-files nil)
-(add-to-list 'org-agenda-files lg-gtd-dir)
+;;(setq org-agenda-files nil)
+(setq org-agenda-files (directory-files-recursively lg-gtd-dir "\.org$"))
 
 (setq org-capture-templates '(("t" "Todo [gtd]" entry
                                (file+headline lg-gtd-gtd-file "任务")
