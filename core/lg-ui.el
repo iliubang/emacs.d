@@ -47,7 +47,8 @@
                :config
                (load-theme 'arjen-grey t)))
 
+;; font
 (when (window-system)
-  (set-default-font "Monaco-12"))
+  (set-default-font "Hack-13"))
 
 (provide 'lg-ui)

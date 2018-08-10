@@ -30,4 +30,41 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+(use-package company-go
+  :ensure t
+  :config
+  (setq company-tooltip-limit 20)                      ; bigger popup window
+  (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+  (setq company-echo-delay 0)                          ; remove annoying blinking
+  (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+  (add-hook 'go-mode-hook (lambda ()
+                            (set (make-local-variable 'company-backends) '(company-go))
+                            (company-mode))))
+
+(use-package go-mode
+  :ensure t
+  :bind (("C-c t t" . go-test-current-test)
+         ("C-c t p" . go-test-current-project)
+         ("C-c t c" . go-test-current-coverage)
+         ("C-c t f" . go-test-current-file))
+  :config
+  (setq-default tab-width 4)
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package go-guru
+  :ensure t)
+
+(use-package go-errcheck
+  :ensure t)
+
+(use-package go-snippets
+  :ensure t)
+
+(use-package go-eldoc
+  :ensure t)
+
+(use-package gotest
+  :ensure t)
+
 (provide 'lg-go)

@@ -30,9 +30,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-;; global company
-(setq global-company-mode t)
-
 ;; Always load newest byte code.
 (setq load-prefer-newer t)
 
@@ -123,16 +120,32 @@
 
 (defun live-coding ()
   (interactive)
-  (set-face-attribute 'default nil :font "Monaco-12")
+  (set-face-attribute 'default nil :font "Hack-12")
   (add-hook 'prog-mode-hook 'command-log-mode))
 
 (defun normal-coding ()
   (interactive)
-  (set-face-attribute 'default nil :font "Monaco-12"))
+  (set-face-attribute 'default nil :font "Hack-12"))
 
 (use-package avy
              :ensure t
-             :bind 
+             :bind
              ("C-c j" . avy-goto-word-or-subword-1))
+
+;; company mode
+(use-package company
+             :ensure t
+             :bind (("C-c /" . company-complete))
+             :config (global-company-mode))
+
+;; outline
+(use-package dash
+             :ensure t)
+
+(use-package outshine
+             :ensure t
+             :config
+             (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+             (add-hook 'prog-mode-hook 'outline-minor-mode))
 
 (provide 'lg-better)

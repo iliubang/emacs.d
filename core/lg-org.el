@@ -40,7 +40,7 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (when (window-system)
-  (let* ((variable-tuple (cond ((x-list-fonts "Monaco") '(:font "Monaco"))
+  (let* ((variable-tuple (cond ((x-list-fonts "Operator Mono Medium") '(:font "Operator Mono Medium"))
                                  ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
                                  ((x-list-fonts "Verdana")         '(:font "Verdana"))
                                  ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
@@ -65,6 +65,14 @@
 
 (use-package htmlize
              :ensure t)
+
+;; org-reveal
+(use-package ox-reveal
+  :ensure t
+  :config
+  (setq org-reveal-mathjax t)
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"))
+
 
 ;; agenda toto keywords
 (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -116,5 +124,8 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+;; org-indent
+(eval-after-load "org-indent" '(diminish 'org-indent-mode))
 
 (provide 'lg-org)
