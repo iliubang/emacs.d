@@ -47,13 +47,27 @@
 ;; don't backup file
 (setq make-backup-files nil)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
 ;; set key on macos
-(setq mac-option-modifier 'none)
-(setq mac-command-modifier 'meta)
-(setq ns-function-modifier 'hyper)
+;; (setq mac-option-modifier 'none)
+;; (setq mac-command-modifier 'meta)
+;; (setq ns-function-modifier 'hyper)
 
 ;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
+
+;; env
+(if (or
+     (eq system-type 'darwin)
+     (eq system-type 'berkeley-unix))
+    (setq system-name (car (split-string system-name "\\."))))
+
+(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+(push "/usr/local/bin" exec-path)
 
 ;; some packages to enhance emacs
 ;;
@@ -135,8 +149,24 @@
 ;; company mode
 (use-package company
              :ensure t
-             :bind (("C-c /" . company-complete))
-             :config (global-company-mode))
+             :bind 
+             (("C-c /" . company-complete)
+              ("TAB" . company-complete))
+             :config
+             (global-company-mode 1)
+             (delete 'company-semantic company-backends))
+
+(use-package projectile
+             :ensure t
+             :config
+             (projectile-global-mode)
+             (setq projectile-enable-caching t))
+
+;; Package: yasnippet
+(use-package yasnippet
+             :ensure t
+             :config
+             (yas-global-mode 1))
 
 ;; outline
 (use-package dash
@@ -145,7 +175,8 @@
 (use-package outshine
              :ensure t
              :config
-             (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
-             (add-hook 'prog-mode-hook 'outline-minor-mode))
+             (progn
+                (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+                (add-hook 'prog-mode-hook 'outline-minor-mode)))
 
 (provide 'lg-better)
