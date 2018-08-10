@@ -79,4 +79,6 @@
 (add-hook 'c-mode-hook 'liubang/cedet-hook)
 (add-hook 'c++-mode-hook 'liubang/cedet-hook)
 
+(add-to-list 'auto-mode-alist '("\\`Makefile" . makefile-mode))
+
 (provide 'lg-clang)
