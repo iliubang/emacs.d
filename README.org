@@ -1,0 +1,12 @@
+* emacs.d
+
+This is my Emacs configuration.
+
+** install
+
+#+BEGIN_SRC shell
+git clone https://github.com/iliubang/emacs.d.git ~/.emacs.d
+#+END_SRC
+
+then open your emacs.
+
