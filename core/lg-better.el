@@ -61,6 +61,13 @@
 ;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
+;; ibuffer mode
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; split
+(global-set-key (kbd "C-c -") 'split-window-below)
+(global-set-key (kbd "C-c |") 'split-window-right)
+
 ;; env
 (if (or
      (eq system-type 'darwin)
