@@ -2,7 +2,6 @@
 * emacs.d
 
 [[https://github.com/iliubang/emacs.d/blob/master/LICENSE][https://img.shields.io/badge/License-MIT-yellow.svg]]
-
 [[https://github.com/iliubang/emacs.d/releases][https://img.shields.io/github/release/iliubang/emacs.d.svg]]
 
 This is my Emacs configuration.
