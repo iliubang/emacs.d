@@ -30,6 +30,10 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+(defun liubang/print-path()
+  (interactive)
+  (message (getenv "PATH")))
+
 (defun liubang/live-coding ()
   (interactive)
   (set-face-attribute 'default nil :font "Hack-12")
