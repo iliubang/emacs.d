@@ -52,8 +52,9 @@
 (defvar lg-dir (file-name-directory load-file-name))
 (defvar lg-core-dir (expand-file-name "core" lg-dir))
 (defvar lg-module-dir (expand-file-name "module" lg-dir))
-(defvar lg-gtd-dir (expand-file-name "gtd" lg-dir))
 (defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
+;; gtd directory
+(defvar lg-gtd-dir (expand-file-name "~/Documents/cloud/org"))
 
 ;; define require-module macro
 (defmacro require-module (pkg)
