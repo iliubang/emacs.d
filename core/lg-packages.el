@@ -142,11 +142,23 @@
 (require-package 'hydra)   
 (require-package 'ivy-hydra)
 (require-package 'command-log-mode)
-
-(require-package 'use-package)
-
+(require-package 'clang-format)
+(require-package 'cmake-mode)
+(require-package 'cpputils-cmake)
+(require-package 'dashboard)
+(require-package 'arjen-grey-theme)
 
 ;; autoload
-
+(autoload 'ivy-recentf "ivy" "" t)
+(autoload 'ivy-read "ivy")
+(autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
+(autoload 'counsel-etags-scan-code "counsel-etags" "" t nil)
+(autoload 'counsel-etags-grep "counsel-etags" "" t nil)
+(autoload 'counsel-etags-grep-symbol-at-point "counsel-etags" "" t nil)
+(autoload 'counsel-etags-recent-tag "counsel-etags" "" t nil)
+(autoload 'web-mode "web-mode")
+(autoload 'snippet-mode "yasnippet" "")
+(autoload 'clang-format-region "clang-format")
+(autoload 'clang-format-buffer "clang-format")
 
 (provide 'lg-packages)

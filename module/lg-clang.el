@@ -30,6 +30,7 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; set .cpp/.hpp to c++-mode, and .c/.h to c-mode
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
@@ -38,33 +39,13 @@
 (setq c-default-style '((java-mode . "java")
                         (awk-mode . "awk")
                         (other . "linux")))
+;; clang-format
+(global-set-key (kbd "C-c i") 'clang-format-region)
+(global-set-key (kbd "C-c u") 'clang-format-buffer)
 
 (defun fix-c-indent-offset-according-to-syntax-context (key val)
   (setq c-offsets-alist (delq (assoc key c-offsets-alist) c-offsets-alist))
   (add-to-list 'c-offsets-alist '(key . val)))
-
-(use-package company-c-headers
-             :ensure t
-             :config
-             (add-to-list 'company-backends 'company-c-headers))
-
-(use-package cc-mode
-             :ensure t)
-
-(use-package semantic
-             :ensure t
-             :config
-             (global-semanticdb-minor-mode)
-             (global-semantic-idle-scheduler-mode 1)
-             (global-semantic-stickyfunc-mode 1)
-             (semantic-mode 1))
-
-(use-package clang-format
-             :ensure t
-             :config
-             (global-set-key (kbd "C-c i") 'clang-format-region)
-             (global-set-key (kbd "C-c u") 'clang-format-buffer))
-
 
 (defun liubang/cedet-hook ()
   (setq c-basic-offset 4)
@@ -82,11 +63,9 @@
     (if (executable-find "cmake")
       (if (not (or (string-match "^/usr/local/include/.*" buffer-file-name)
                    (string-match "^/usr/src/linux/include/.*" buffer-file-name)))
-					(cppcm-reload-all)))
-  (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
-  (local-set-key "\C-c\C-s" 'semantic-ia-show-summary)))
+					(cppcm-reload-all)))))
 
-
+;; c-mode-hook
 (add-hook 'c-mode-common-hook 'liubang/cedet-hook)
 (add-hook 'c-mode-hook 'liubang/cedet-hook)
 (add-hook 'c++-mode-hook 'liubang/cedet-hook)

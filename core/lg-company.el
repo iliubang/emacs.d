@@ -45,7 +45,8 @@
                             company-dabbrev-ignore-case nil
                             ;; press M-number to choose candidate
                             company-show-numbers t
-                            company-idle-delay 0.2
+                            company-idle-delay 0.1
+                            company-minimul-prefix-length 3
                             company-clang-insert-arguments nil
                             company-require-match nil
                             company-etags-ignore-case t)
@@ -60,13 +61,12 @@
                       (setq company-auto-complete nil)
                       ;; NOT to load company-mode for certain major modes.
                       ;; https://github.com/company-mode/company-mode/issues/29
-                      (setq company-global-modes
-                             'not (eshell-mode comint-mode erc-mode gud-mode rcirc-mode minibuffer-inactive-mode))
-                      ;; (define-key company-active-map (kbd "M-n") nil)
-                      ;; (define-key company-active-map (kbd "M-p") nil)
-                      ;; (define-key company-active-map (kbd "C-n") #'company-select-next)
-                      ;; (define-key company-active-map (kbd "C-p") #'company-select-previous))
-                      )
+                      ;; (setq company-global-modes
+                      ;;        'not (eshell-mode comint-mode erc-mode gud-mode rcirc-mode minibuffer-inactive-mode))
+                      (define-key company-active-map (kbd "M-n") nil)
+                      (define-key company-active-map (kbd "M-p") nil)
+                      (define-key company-active-map (kbd "C-n") #'company-select-next)
+                      (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 ;; company-etags
 (with-eval-after-load 'company-etags
