@@ -30,22 +30,18 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-;; Available C style:
-;; “gnu”: The default style for GNU projects
-;; “k&r”: What Kernighan and Ritchie, the authors of C used in their book
-;; “bsd”: What BSD developers use, aka “Allman style” after Eric Allman.
-;; “whitesmith”: Popularized by the examples that came with Whitesmiths C, an early commercial C compiler.
-;; “stroustrup”: What Stroustrup, the author of C++ used in his book
-;; “ellemtel”: Popular C++ coding standards as defined by “Programming in C++, Rules and Recommendations,” Erik Nyquist and Mats Henricson, Ellemtel
-;; “linux”: What the Linux developers use for kernel development
-;; “python”: What Python developers use for extension modules
-;; “java”: The default style for java-mode (see below)
-;; “user”: When you want to define your own style
-
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
+
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "linux")))
+
+(defun fix-c-indent-offset-according-to-syntax-context (key val)
+  (setq c-offsets-alist (delq (assoc key c-offsets-alist) c-offsets-alist))
+  (add-to-list 'c-offsets-alist '(key . val)))
 
 (use-package company-c-headers
              :ensure t
@@ -71,14 +67,28 @@
 
 
 (defun liubang/cedet-hook ()
-  (setq c-default-style "linux")
+  (setq c-basic-offset 4)
+  (setq c-auto-newline nil)
+  (setq lazy-lock-defer-contextually t)
+  (setq lazy-lock-defer-time 0) 
+  (c-toggle-hungry-state 1) 
+  (fix-c-indent-offset-according-to-syntax-context 'substatement 0)
+  (fix-c-indent-offset-according-to-syntax-context 'func-decl-cont 0)
+  (setq cc-search-directories '("." "/usr/include" "/usr/local/include/*" "../*/include" "$WXWIN/include")) 
+  ;; make a #define be left-aligned
+  (setq c-electric-pound-behavior (quote (alignleft)))
+  (when buffer-file-name
+    (flymake-mode 1)
+    (if (executable-find "cmake")
+      (if (not (or (string-match "^/usr/local/include/.*" buffer-file-name)
+                   (string-match "^/usr/src/linux/include/.*" buffer-file-name)))
+					(cppcm-reload-all)))
   (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
-  (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
+  (local-set-key "\C-c\C-s" 'semantic-ia-show-summary)))
+
 
 (add-hook 'c-mode-common-hook 'liubang/cedet-hook)
 (add-hook 'c-mode-hook 'liubang/cedet-hook)
 (add-hook 'c++-mode-hook 'liubang/cedet-hook)
-
-(add-to-list 'auto-mode-alist '("\\`Makefile" . makefile-mode))
 
 (provide 'lg-clang)

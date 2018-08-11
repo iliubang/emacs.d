@@ -5,3 +5,4 @@ gtd
 bookmarks
 semanticdb
 *.eld
+company-statistics-cache.el

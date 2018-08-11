@@ -30,6 +30,11 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; enable erase-buffer command
+;; http://emacsredux.com/blog/2013/05/04/erase-buffer/
+(put 'erase-buffer 'disabled nil)
+(global-set-key (kbd "C-c e")  'erase-buffer)
+
 ;; Always load newest byte code.
 (setq load-prefer-newer t)
 
@@ -53,13 +58,10 @@
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 
-;; set key on macos
-;; (setq mac-option-modifier 'none)
-;; (setq mac-command-modifier 'meta)
-;; (setq ns-function-modifier 'hyper)
-
 ;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
+;; kill buffer without my confirmation
+(setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
 ;; ibuffer mode
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -77,68 +79,57 @@
 (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
 (push "/usr/local/bin" exec-path)
 
-;; some packages to enhance emacs
-;;
-;; dimish modes
-(use-package diminish
-             :ensure t)
-
 ;; counsel
-(use-package counsel
-             :ensure t
-             :bind
-             (("M-x" . counsel-M-x)
-              ("M-y" . counsel-yank-pop)
-              :map ivy-minibuffer-map
-              ("M-y" . ivy-next-line)))
+(require 'counsel)
+(ivy-mode 1)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+(global-set-key (kbd "C-s") 'swiper)
 
-;; swiper
-(use-package swiper
-             :pin melpa-stable
-             :diminish ivy-mode
-             :ensure t
-             :bind*
-             (("C-s" . swiper)
-              ("C-c C-r" . ivy-resume)
-              ("C-x C-f" . counsel-find-file)
-              ("C-c h f" . counsel-describe-function)
-              ("C-c h v" . counsel-describe-variable)
-              ("C-c i u" . counsel-unicode-char)
-              ("M-i" . counsel-imenu)
-              ("C-x l" . counsel-locate)
-              ("C-c k" . counsel-ag))
-             :config
-             (progn
-               (ivy-mode 1)
-               (setq ivy-use-virtual-buffers t)
-               (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-               (ivy-set-actions
-                 'counsel-find-file
-                 '(("d" (lambda (x) (delete-file (expand-file-name x)))
-                    "delete")))
-               (ivy-set-actions
-                 'ivy-switch-buffer
-                 '(("k" (lambda (x) (kill-buffer x)
-                          (ivy--reset-state ivy-last))
-                    "kill")
-                   ("j" ivy--switch-buffer-other-window-action
-                    "other window")))))
+;; https://github.com/abo-abo/swiper/issues/1218 
+(setq ivy-dynamic-exhibit-delay-ms 250) 
+;; https://oremacs.com/2017/11/30/ivy-0.10.0/ 
+(setq ivy-use-selectable-prompt t)
 
-(use-package ivy-hydra
-             :ensure t)
+(defun ivy-switch-buffer-matcher-pinyin (regexp candidates)
+  (unless (featurep 'pinyinlib) (require 'pinyinlib))
+  (let* ((pys (split-string regexp "[ \t]+"))
+         (regexp (format ".*%s.*"
+                         (mapconcat 'pinyinlib-build-regexp-string pys ".*"))))
+    (ivy--switch-buffer-matcher regexp candidates)))
 
+(defun ivy-switch-buffer-by-pinyin ()
+  (interactive)
+  (unless (featurep 'ivy) (require 'ivy))
+  (let ((this-command 'ivy-switch-buffer))
+    (ivy-read "Switch to buffer: " 'internal-complete-buffer
+              :matcher #'ivy-switch-buffer-matcher-pinyin
+              :preselect (buffer-name (other-buffer (current-buffer)))
+              :action #'ivy--switch-buffer-action
+              :keymap ivy-switch-buffer-map
+              :caller 'ivy-switch-buffer)))
 
-;; bookmarks
-(use-package bm
-             :ensure t
-             :bind 
-             (("C-c =" . bm-toggle)
-              ("C-c [" . bm-previous)
-              ("C-c ]" . bm-next)))
+;; press "M-o" to choose ivy action
+(ivy-set-actions
+  'counsel-find-file
+  '(("j" find-file-other-frame "other frame")
+    ("b" counsel-find-file-cd-bookmark-action "cd bookmark")
+    ("x" counsel-find-file-extern "open externally")
+    ("d" delete-file "delete")
+    ("r" counsel-find-file-as-root "open as root")))
 
+;; set actions when running C-x b
+;; replace "frame" with window to open in new window
+(ivy-set-actions
+  'ivy-switch-buffer-by-pinyin
+  '(("j" switch-to-buffer-other-frame "other frame")
+    ("k" kill-buffer "kill")
+     ("r" ivy--rename-buffer-action "rename")))
 
-(use-package command-log-mode
-             :ensure t)
+(with-eval-after-load 'ivy
+                      ;; https://github.com/abo-abo/swiper/issues/828
+                      (setq ivy-display-style 'fancy))
 
 (defun live-coding ()
   (interactive)
@@ -148,43 +139,5 @@
 (defun normal-coding ()
   (interactive)
   (set-face-attribute 'default nil :font "Hack-12"))
-
-(use-package avy
-             :ensure t
-             :bind
-             ("C-c j" . avy-goto-word-or-subword-1))
-
-;; company mode
-(use-package company
-             :ensure t
-             :bind 
-             (("C-c /" . company-complete)
-              ("TAB" . company-complete))
-             :config
-             (global-company-mode 1)
-             (delete 'company-semantic company-backends))
-
-(use-package projectile
-             :ensure t
-             :config
-             (projectile-global-mode)
-             (setq projectile-enable-caching t))
-
-;; Package: yasnippet
-(use-package yasnippet
-             :ensure t
-             :config
-             (yas-global-mode 1))
-
-;; outline
-(use-package dash
-             :ensure t)
-
-(use-package outshine
-             :ensure t
-             :config
-             (progn
-                (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
-                (add-hook 'prog-mode-hook 'outline-minor-mode)))
 
 (provide 'lg-better)

@@ -43,26 +43,46 @@
 (when (version< emacs-version "25.1")
   (error "Prelude requires GNU Emacs 25.1 or newer, but you're running %s" emacs-version))
 
-;; init some directories.
+;; *Message* buffer should be writable in 24.4+
+(defadvice switch-to-buffer (after switch-to-buffer-after-hack activate) 
+  (if (string= "*Messages*" (buffer-name))
+    (read-only-mode -1)))
+
+;; define some directories variables.
 (defvar lg-dir (file-name-directory load-file-name))
 (defvar lg-core-dir (expand-file-name "core" lg-dir))
 (defvar lg-module-dir (expand-file-name "module" lg-dir))
 (defvar lg-gtd-dir (expand-file-name "gtd" lg-dir))
+(defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
+
+;; define require-module macro
+(defmacro require-module (pkg)
+  `(load (file-truename (format (concat lg-module-dir "/%s"), pkg))))
+
+;; define require core macro
+(defmacro require-init (pkg)
+  `(load (file-truename (format (concat lg-core-dir "/%s"), pkg))))
 
 ;; add linger's directories to emacs's load-path
 (add-to-list 'load-path lg-core-dir)
 (add-to-list 'load-path lg-module-dir)
 
-(message "Loading core...")
+;; speed up emacs start
+(let ((file-name-handler-alist nil))
+  (message "Loading core...")
+  ;; load core...
+  (require-init 'lg-packages)
+  (require-init 'lg-better)
+  (require-init 'lg-ui)
+  (require-init 'lg-org)
+  (require-init 'lg-company)
+  ;; loading modules...
+  (message "Loading modules...")
+  ;; load extra modules
+  ;; (require-module 'lg-clang)
+)
 
-;; load core modules
-(require 'lg-packages)
-(require 'lg-better)
-(require 'lg-ui)
-(require 'lg-org)
-;; load extra modules
-(require 'lg-go)
-(require 'lg-clang)
+(if (file-exists-p lg-custom-file) (load-file lg-custom-file))
+(setq custom-file (expand-file-name "custom-set-variables.el" lg-dir))
+(load custom-file :no-error)
 
-(setq custom-file (expand-file-name "custom.el" lg-core-dir))
-(load custom-file :no-error :no-message)

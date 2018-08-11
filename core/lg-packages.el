@@ -32,6 +32,8 @@
 
 ;; a secure emacs environment
 ;; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
+
+(require 'package)
 (require 'cl)
 (setq tls-checktruct t)
 
@@ -66,7 +68,6 @@
 ;;      (url-retrieve "https://badssl.com"
 ;;                    (lambda (retrieved) t))))
 
-(require 'package)
 
 (defvar gnu '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"))
 (defvar melpa '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
@@ -88,35 +89,64 @@
              (file-exists-p (concat lg-dir "elpa/archives/melpa-stable")))
   (package-refresh-contents))
 
-;; define packages-install function
-(defun packages-install (&rest packages)
-  (message "running packages-install")
-  (mapc (lambda (package)
-          (let ((name (car package))
-                (repo (cdr package)))
-            (when (not (package-installed-p name))
-              (let ((package-archives (list repo)))
-                (package-initialize)
-                (package-install name)))))
-        packages)
-  (package-initialize)
-  (delete-other-windows))
 
-;; install missing packages
-(defun init--install-packages ()
-  (message "Lets install some packages")
-  (packages-install
-   ;; Since use-package this is the only entry here
-   ;; ALWAYS try to use use-package!
-   (cons 'use-package melpa)))
+;; Patch up annoying package.el quirks
+(defadvice package-generate-autoloads (after close-autoloads (name pkg-dir) activate)
+           (let* ((path (expand-file-name (concat
+                                   (if (symbolp name) (symbol-name name) name)
+                                   "-autoloads.el") pkg-dir)))
+             (with-current-buffer (find-file-existing path)
+                         (kill-buffer nil))))
 
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+(defun require-package (package &optional min-version no-refresh)
+  (if (package-installed-p package min-version) 
+    t
+    (if (or (assoc package package-archive-contents) no-refresh)
+      (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
 
-;; install use-package plugin
-(package-install 'use-package)
+
+
+;; packages
+(require-package 'diminish)
+(require-package 'avy)
+(require-package 'ivy)
+(require-package 'swiper)
+(require-package 'counsel)
+(require-package 'auto-yasnippet)
+(require-package 'counsel-gtags)
+(require-package 'yasnippet)
+(require-package 'yasnippet-snippets)
+(require-package 'company)
+(require-package 'company-c-headers)
+(require-package 'company-statistics)
+(require-package 'htmlize)
+(require-package 'undo-tree)
+(require-package 'pinyinlib)
+(require-package 'find-by-pinyin-dired)
+(require-package 'evil)
+(require-package 'evil-escape)
+(require-package 'evil-exchange)
+(require-package 'evil-find-char-pinyin)
+(require-package 'evil-iedit-state)
+(require-package 'evil-mark-replace)
+(require-package 'evil-matchit)
+(require-package 'evil-nerd-commenter)
+(require-package 'evil-surround)
+(require-package 'evil-visualstar)
+(require-package 'evil-lion)
+(require-package 'evil-args)
+(require-package 'neotree)  
+(require-package 'hydra)   
+(require-package 'ivy-hydra)
+(require-package 'command-log-mode)
+
+(require-package 'use-package)
+
+
+;; autoload
+
 
 (provide 'lg-packages)
