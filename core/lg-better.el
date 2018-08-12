@@ -49,6 +49,9 @@
 (recentf-mode 1)
 (setq recentf-max-menu-item 10)
 
+;; display time on status line
+(display-time-mode 1)
+
 ;; don't backup file
 (setq make-backup-files nil)
 

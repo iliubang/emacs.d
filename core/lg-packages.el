@@ -155,6 +155,8 @@
 ;; ui & theme
 (require-package 'dashboard)
 (require-package 'arjen-grey-theme)
+(require-package 'doom-themes)
+(require-package 'smart-mode-line)
 ;; autopair
 (require-package 'autopair)
 

@@ -31,6 +31,7 @@
 ;; SOFTWARE.
 
 (setq org-hide-emphasis-markers t)
+
 (font-lock-add-keywords 'org-mode
                           '(("^ +\\([-*]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -56,18 +57,42 @@
 (setq org-agenda-files (directory-files-recursively lg-gtd-dir "\.org$"))
 
 (setq org-capture-templates '(("t" "Todo [gtd]" entry
-                               (file+headline lg-gtd-gtd-file "任务")
+                               (file+headline lg-gtd-gtd-file "Task")
                                "* TODO %?\n  %u\n  %a")
                               ("n" "Note" entry
-                               (file+headline lg-gtd-note-file "笔记")
+                               (file+headline lg-gtd-note-file "Note")
                                "* %^{标题} %t %^g\n  %?\n")
                               ("i" "Inbox" entry
                                (file+headline lg-gtd-inbox-file "Inbox")
                                "* %U - %^{标题} %^g\n %?\n")))
 
-(setq org-refile-targets '((lg-gtd-gtd-file :maxlevel . 3)
-                           (lg-gtd-inbox-file :maxlevel . 2)
-                           (lg-gtd-note-file :level . 1)))
+;; Various preferences
+(setq org-log-done t
+      org-completion-use-ido t
+      org-edit-src-content-indentation 0
+      org-edit-timestamp-down-means-later t
+      org-agenda-start-on-weekday nil
+      org-agenda-span 14
+      org-agenda-include-diary t
+      org-agenda-window-setup 'current-window
+      org-fast-tag-selection-single-key 'expert
+      org-export-kill-product-buffer-when-displayed t
+      ;; v7
+      org-export-odt-preferred-output-format "doc"
+      ;; v8
+      org-odt-preferred-output-format "doc"
+      org-tags-column 80
+      org-agenda-inhibit-startup t ;; ~50x speedup
+      org-agenda-use-tag-inheritance nil ;; 3-4x speedup
+      )
+
+;; Org-mode Refile
+(setq org-refile-targets (list (cons nil (cons :maxlevel 6))))
+
+;; Set Org-mode Inline Image Default Size
+(setq org-image-actual-width '(600))
+
+;;(setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤"))
 
 (setq org-agenda-custom-commands
         '(("b" "liubang" tags-todo "@liubang"
@@ -75,7 +100,6 @@
             (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
 
 (defun my-org-agenda-skip-all-siblings-but-first ()
-    "Skip all but the first non-done entry."
     (let (should-skip-entry)
       (unless (org-current-is-todo)
         (setq should-skip-entry t))
