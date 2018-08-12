@@ -131,13 +131,13 @@
                       ;; https://github.com/abo-abo/swiper/issues/828
                       (setq ivy-display-style 'fancy))
 
-(defun live-coding ()
-  (interactive)
-  (set-face-attribute 'default nil :font "Hack-12")
-  (add-hook 'prog-mode-hook 'command-log-mode))
-
-(defun normal-coding ()
-  (interactive)
-  (set-face-attribute 'default nil :font "Hack-12"))
+;; autopair
+(autopair-global-mode)
+(add-hook 'emacs-lisp-mode-hook
+          #'(lambda ()
+              (push '(?` . ?')
+                    (getf autopair-extra-pairs :comment))
+              (push '(?` . ?')
+                    (getf autopair-extra-pairs :string))))
 
 (provide 'lg-better)

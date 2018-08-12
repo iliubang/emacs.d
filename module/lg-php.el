@@ -1,4 +1,4 @@
-;;; lg-ui.el
+;;; lg-php.el
 ;; 
 ;; Copyright (c) 2018 Liubang
 ;; 
@@ -30,31 +30,34 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(require 'arjen-grey-theme)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.phpt$" . php-mode))
 
-;; custom ui
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(global-linum-mode 1)
-(setq inhibit-splash-screen 1)
-;; fullscreen on startup
-(setq initial-frame-alist (quote ((fullscreen . maximized))))
-;; highlight current line
-(global-hl-line-mode 1)
+(with-eval-after-load 'php-mode
+  (require 'php-ext)
+  (define-key php-mode-map (kbd "C-c C--") 'php-current-class)
+  (define-key php-mode-map (kbd "C-c C-=") 'php-current-namespace))
 
-;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+(defun liubang/php-mode-hook ()
+  ;; (auto-complete-mode t)
+  ;; (require 'company-php)
+  ;; (company-mode t)
+  ;; (ac-php-core-eldoc-setup) ;; enable eldoc
+  ;; (make-local-variable 'company-backends)
+  ;; (add-to-list 'company-backends 'company-ac-php-backend)
+  (auto-complete-mode t)
+  (require 'ac-php)
+  (setq ac-sources  '(ac-source-php ))
+  (yas-global-mode 1)
+  (ac-php-core-eldoc-setup ) ;; enable eldoc
+  (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
+  ;; indent
+  (setq indent-tabs-mode nil)
+  (setq c-basic-offset 4)
+  (setq php-template-compatibility nil)
+  (subword-mode 1))
 
-;; theme & font
-(when (window-system) 
-  (progn
-    (load-theme 'arjen-grey t)
-    (set-default-font "Hack-13")))
+(add-hook 'php-mode-hook 'liubang/php-mode-hook)
 
-;; dashboard
-(setq show-week-agenda-p t)
-(setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
-(dashboard-setup-startup-hook)
-
-(provide 'lg-ui)
+(provide 'lg-php)

@@ -144,11 +144,19 @@
 (require-package 'hydra)   
 (require-package 'ivy-hydra)
 (require-package 'command-log-mode)
+;; clang
 (require-package 'clang-format)
 (require-package 'cmake-mode)
 (require-package 'cpputils-cmake)
+;; php
+(require-package 'php-mode)
+(require-package 'company-php)
+(require-package 'ac-php)
+;; ui & theme
 (require-package 'dashboard)
 (require-package 'arjen-grey-theme)
+;; autopair
+(require-package 'autopair)
 
 ;; autoload
 (autoload 'ivy-recentf "ivy" "" t)
@@ -162,5 +170,6 @@
 (autoload 'snippet-mode "yasnippet" "")
 (autoload 'clang-format-region "clang-format")
 (autoload 'clang-format-buffer "clang-format")
+(autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
 
 (provide 'lg-packages)

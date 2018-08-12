@@ -1,4 +1,4 @@
-;;; lg-ui.el
+;;; lg-evil.el
 ;; 
 ;; Copyright (c) 2018 Liubang
 ;; 
@@ -30,31 +30,5 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(require 'arjen-grey-theme)
 
-;; custom ui
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(global-linum-mode 1)
-(setq inhibit-splash-screen 1)
-;; fullscreen on startup
-(setq initial-frame-alist (quote ((fullscreen . maximized))))
-;; highlight current line
-(global-hl-line-mode 1)
-
-;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
-
-;; theme & font
-(when (window-system) 
-  (progn
-    (load-theme 'arjen-grey t)
-    (set-default-font "Hack-13")))
-
-;; dashboard
-(setq show-week-agenda-p t)
-(setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
-(dashboard-setup-startup-hook)
-
-(provide 'lg-ui)
+(provide 'lg-evil)

@@ -77,14 +77,15 @@
   (require-init 'lg-better)
   (require-init 'lg-ui)
   (require-init 'lg-org)
+  (require-init 'lg-evil)
   (require-init 'lg-company)
   (require-init 'lg-yasnippet)
   ;; loading modules...
   (message "Loading modules...")
   ;; load extra modules
   ;; (require-module 'lg-go)
-  ;; (require-module 'lg-php)
   (require-module 'lg-clang)
+  (require-module 'lg-php)
 )
 
 (if (file-exists-p lg-custom-file) (load-file lg-custom-file))
