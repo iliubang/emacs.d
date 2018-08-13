@@ -153,9 +153,8 @@
 (require-package 'company-php)
 (require-package 'ac-php)
 ;; ui & theme
+;; (require-package 'color-theme)
 (require-package 'dashboard)
-(require-package 'arjen-grey-theme)
-(require-package 'doom-themes)
 (require-package 'solarized-theme)
 (require-package 'zenburn-theme)
 ;; autopair

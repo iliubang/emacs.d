@@ -52,7 +52,9 @@
 (defvar lg-dir (file-name-directory load-file-name))
 (defvar lg-core-dir (expand-file-name "core" lg-dir))
 (defvar lg-module-dir (expand-file-name "module" lg-dir))
+(defvar lg-theme-dir (expand-file-name "themes" lg-dir))
 (defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
+
 ;; gtd directory
 (defvar lg-gtd-dir (expand-file-name "~/Documents/cloud/org"))
 
@@ -67,6 +69,7 @@
 ;; add linger's directories to emacs's load-path
 (add-to-list 'load-path lg-core-dir)
 (add-to-list 'load-path lg-module-dir)
+(add-to-list 'load-path lg-theme-dir)
 
 ;; speed up emacs start
 (let ((file-name-handler-alist nil))
@@ -74,8 +77,8 @@
   ;; load core...
   (require-init 'lg-functions)
   (require-init 'lg-packages)
-  (require-init 'lg-better)
   (require-init 'lg-ui)
+  (require-init 'lg-better)
   (require-init 'lg-org)
   (require-init 'lg-evil)
   (require-init 'lg-company)
