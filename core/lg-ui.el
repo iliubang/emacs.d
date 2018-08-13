@@ -30,8 +30,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(require 'arjen-grey-theme)
-
 ;; encoding
 (set-language-environment 'utf-8)
 (setq locale-coding-system 'utf-8)
@@ -60,7 +58,7 @@
 (setq split-width-threshold 0)
 
 ;; theme
-;;(load-theme 'solarized-light t)
+;; (load-theme 'solarized-light t)
 (load-theme 'zenburn t)
 
 

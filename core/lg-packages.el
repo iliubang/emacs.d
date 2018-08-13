@@ -53,21 +53,6 @@
   (setq gnutls-verify-error t)
   (setq gnutls-trustfiles (list trustfile)))
 
-;; Test the settings by using the following code snippet:
-;;  (let ((bad-hosts
-;;         (loop for bad
-;;               in `("https://wrong.host.badssl.com/"
-;;                    "https://self-signed.badssl.com/")
-;;               if (condition-case e
-;;                      (url-retrieve
-;;                       bad (lambda (retrieved) t))
-;;                    (error nil))
-;;               collect bad)))
-;;    (if bad-hosts
-;;        (error (format "tls misconfigured; retrieved %s ok" bad-hosts))
-;;      (url-retrieve "https://badssl.com"
-;;                    (lambda (retrieved) t))))
-
 
 (defvar gnu '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"))
 (defvar melpa '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
@@ -89,7 +74,6 @@
              (file-exists-p (concat lg-dir "elpa/archives/melpa-stable")))
   (package-refresh-contents))
 
-
 ;; Patch up annoying package.el quirks
 (defadvice package-generate-autoloads (after close-autoloads (name pkg-dir) activate)
            (let* ((path (expand-file-name (concat
@@ -106,8 +90,6 @@
       (progn
         (package-refresh-contents)
         (require-package package min-version t)))))
-
-
 
 ;; packages
 (require-package 'diminish)
@@ -128,22 +110,9 @@
 (require-package 'undo-tree)
 (require-package 'pinyinlib)
 (require-package 'find-by-pinyin-dired)
-;; (require-package 'evil)
-;; (require-package 'evil-escape)
-;; (require-package 'evil-exchange)
-;; (require-package 'evil-find-char-pinyin)
-;; (require-package 'evil-iedit-state)
-;; (require-package 'evil-mark-replace)
-;; (require-package 'evil-matchit)
-;; (require-package 'evil-nerd-commenter)
-;; (require-package 'evil-surround)
-;; (require-package 'evil-visualstar)
-;; (require-package 'evil-lion)
-;; (require-package 'evil-args)
-(require-package 'neotree)  
-(require-package 'hydra)   
-(require-package 'ivy-hydra)
 (require-package 'command-log-mode)
+;; autopair
+(require-package 'autopair)
 ;; clang
 (require-package 'clang-format)
 (require-package 'cmake-mode)
@@ -157,8 +126,6 @@
 (require-package 'dashboard)
 (require-package 'solarized-theme)
 (require-package 'zenburn-theme)
-;; autopair
-(require-package 'autopair)
 
 ;; autoload
 (autoload 'ivy-recentf "ivy" "" t)
