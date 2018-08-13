@@ -40,24 +40,58 @@
 (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js")
 
 ;; agenda toto keywords
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+;; (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+
+;; Fast Todo Selection
+(setq org-use-fast-todo-selection t)
+;; allows changing todo states with S-left and S-right skipping all of the normal processing when entering or leaving a todo state.
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+;; TODO state triggers
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t))
+              ("HOLD" ("WAITING") ("HOLD" . t))
+              (done ("WAITING") ("HOLD"))
+              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+;; toto keyword faces
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
 
 (defvar lg-gtd-gtd-file (concat lg-gtd-dir "/gtd.org"))
-(defvar lg-gtd-inbox-file (concat lg-gtd-dir "/inbox.org"))
 (defvar lg-gtd-note-file (concat lg-gtd-dir "/note.org"))
+(defvar lg-gtd-meeting-file (concat lg-gtd-dir "/meeting.org"))
+;; for my work
+(defvar lg-gtd-weibo-gtd-file (concat lg-gtd-dir "/weibo.org"))
 
-;;(setq org-agenda-files nil)
-(setq org-agenda-files (directory-files-recursively lg-gtd-dir "\.org$"))
+;; set agenda files directory
+(add-to-list 'org-agenda-files lg-gtd-gtd-file)
+(add-to-list 'org-agenda-files lg-gtd-note-file)
+(add-to-list 'org-agenda-files lg-gtd-meeting-file)
+(add-to-list 'org-agenda-files lg-gtd-weibo-gtd-file)
 
-(setq org-capture-templates '(("t" "Todo [gtd]" entry
-                               (file+headline lg-gtd-gtd-file "Task")
-                               "* TODO %?\n  %u\n  %a")
-                              ("n" "Note" entry
-                               (file+headline lg-gtd-note-file "Note")
-                               "* %^{标题} %t %^g\n  %?\n")
-                              ("i" "Inbox" entry
-                               (file+headline lg-gtd-inbox-file "Inbox")
-                               "* %U - %^{标题} %^g\n %?\n")))
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file lg-gtd-gtd-file)
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("w" "todo" entry (file lg-gtd-weibo-gtd-file)
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("n" "note" entry (file lg-gtd-note-file)
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("m" "Meeting" entry (file lg-gtd-meeting-file)
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t))))
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
@@ -68,19 +102,15 @@
 (setq org-agenda-inhibit-startup t) ;; ~50x speedup
 (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
 
-;; Org-mode Refile
-(setq org-refile-targets (list (cons nil (cons :maxlevel 6))))
 
 ;; Set Org-mode Inline Image Default Size
 (setq org-image-actual-width '(600))
 
-(defun org-current-is-todo ()
-  (string= "TODO" (org-get-todo-state)))
-
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
+;; key
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
 
 ;; org-indent
 (eval-after-load "org-indent" '(diminish 'org-indent-mode))

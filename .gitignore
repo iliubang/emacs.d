@@ -8,3 +8,4 @@ semanticdb
 company-statistics-cache.el
 snippets
 *.dat
+custom-set-variables.el
