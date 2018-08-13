@@ -30,7 +30,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (require 'ox-html)
@@ -39,7 +38,6 @@
 ;; org-reveal
 (setq org-reveal-mathjax t)
 (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js")
-
 
 ;; agenda toto keywords
 (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -75,8 +73,6 @@
 
 ;; Set Org-mode Inline Image Default Size
 (setq org-image-actual-width '(600))
-
-(setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 
 (defun org-current-is-todo ()
   (string= "TODO" (org-get-todo-state)))
