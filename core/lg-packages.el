@@ -156,8 +156,8 @@
 (require-package 'dashboard)
 (require-package 'arjen-grey-theme)
 (require-package 'doom-themes)
-(require-package 'smart-mode-line)
 (require-package 'solarized-theme)
+(require-package 'zenburn-theme)
 ;; autopair
 (require-package 'autopair)
 

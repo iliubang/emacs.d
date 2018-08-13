@@ -60,15 +60,9 @@
 (setq split-width-threshold 0)
 
 ;; theme
-;;(load-theme 'arjen-grey t)
-;;(load-theme 'doom-spacegrey t)
-;;(doom-themes-visual-bell-config)
-;;(doom-themes-org-config)
-;;(load-theme 'solarized-light)
+;;(load-theme 'solarized-light t)
+(load-theme 'zenburn t)
 
-;; status lime mode
-;; (sml/setup)
-;; (setq sml/theme 'respectful)
 
 ;; dashboard
 (setq show-week-agenda-p t)

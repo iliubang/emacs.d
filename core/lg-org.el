@@ -30,11 +30,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(setq org-hide-emphasis-markers t)
-
-(font-lock-add-keywords 'org-mode
-                          '(("^ +\\([-*]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
@@ -66,25 +61,14 @@
                                (file+headline lg-gtd-inbox-file "Inbox")
                                "* %U - %^{标题} %^g\n %?\n")))
 
-;; Various preferences
-(setq org-log-done t
-      org-completion-use-ido t
-      org-edit-src-content-indentation 0
-      org-edit-timestamp-down-means-later t
-      org-agenda-start-on-weekday nil
-      org-agenda-span 14
-      org-agenda-include-diary t
-      org-agenda-window-setup 'current-window
-      org-fast-tag-selection-single-key 'expert
-      org-export-kill-product-buffer-when-displayed t
-      ;; v7
-      org-export-odt-preferred-output-format "doc"
-      ;; v8
-      org-odt-preferred-output-format "doc"
-      org-tags-column 80
-      org-agenda-inhibit-startup t ;; ~50x speedup
-      org-agenda-use-tag-inheritance nil ;; 3-4x speedup
-      )
+;; fontify code in code blocks
+(setq org-src-fontify-natively t)
+(setq org-level-color-stars-only nil)
+(setq org-hide-leading-stars nil)
+(setq org-hide-emphasis-markers t)
+(setq org-tags-column 80)
+(setq org-agenda-inhibit-startup t) ;; ~50x speedup
+(setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
 
 ;; Org-mode Refile
 (setq org-refile-targets (list (cons nil (cons :maxlevel 6))))
@@ -93,23 +77,6 @@
 (setq org-image-actual-width '(600))
 
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
-
-(setq org-agenda-custom-commands
-        '(("b" "liubang" tags-todo "@liubang"
-           ((org-agenda-overriding-header "Liubang")
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
-
-(defun my-org-agenda-skip-all-siblings-but-first ()
-    (let (should-skip-entry)
-      (unless (org-current-is-todo)
-        (setq should-skip-entry t))
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (org-current-is-todo)
-            (setq should-skip-entry t))))
-      (when should-skip-entry
-        (or (outline-next-heading)
-            (goto-char (point-max))))))
 
 (defun org-current-is-todo ()
   (string= "TODO" (org-get-todo-state)))
