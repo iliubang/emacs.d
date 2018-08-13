@@ -32,6 +32,19 @@
 
 (require 'arjen-grey-theme)
 
+;; encoding
+(set-language-environment 'utf-8)
+(setq locale-coding-system 'utf-8)
+;; set the default encoding system
+(prefer-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
 ;; custom ui
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -46,29 +59,16 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
 
-;; fonts
-(setq fonts
-      (cond ((eq system-type 'darwin)     '("Monaco"    "STHeiti"))
-             ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
-             ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
-(set-face-attribute 'default nil :font
-                     (format "%s:pixelsize=%d" (car fonts) 12))
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font (frame-parameter nil 'font) charset
-                    (font-spec :family (car (cdr fonts)))))
-
-;; Fix chinese font width and rescale
-(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2) ("STHeiti". 1.2)))
-
 ;; theme
-;; (load-theme 'arjen-grey t)
-(load-theme 'doom-spacegrey t)
-(doom-themes-visual-bell-config)
-(doom-themes-org-config)
+;;(load-theme 'arjen-grey t)
+;;(load-theme 'doom-spacegrey t)
+;;(doom-themes-visual-bell-config)
+;;(doom-themes-org-config)
+;;(load-theme 'solarized-light)
 
 ;; status lime mode
-(sml/setup)
-(setq sml/theme 'respectful)
+;; (sml/setup)
+;; (setq sml/theme 'respectful)
 
 ;; dashboard
 (setq show-week-agenda-p t)

@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
     (cpputils-cmake cmake-mode yasnippet-snippets use-package ox-reveal outshine org-bullets neotree ivy-hydra htmlize gotest go-snippets go-guru go-errcheck go-eldoc find-by-pinyin-dired evil-visualstar evil-surround evil-nerd-commenter evil-matchit evil-mark-replace evil-lion evil-iedit-state evil-find-char-pinyin evil-exchange evil-escape evil-args diminish dashboard counsel-projectile counsel-gtags company-statistics company-go company-c-headers command-log-mode clang-format bm avy auto-yasnippet arjen-grey-theme))))

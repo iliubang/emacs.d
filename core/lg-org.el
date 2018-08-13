@@ -92,7 +92,7 @@
 ;; Set Org-mode Inline Image Default Size
 (setq org-image-actual-width '(600))
 
-;;(setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤"))
+(setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 
 (setq org-agenda-custom-commands
         '(("b" "liubang" tags-todo "@liubang"
