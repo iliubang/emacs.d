@@ -52,7 +52,6 @@
 (add-to-list 'auto-mode-alist '("\\.yasnippet\\'" . snippet-mode))
 
 (with-eval-after-load 'yasnippet
-                      ;; http://stackoverflow.com/questions/7619640/emacs-latex-yasnippet-why-are-newlines-inserted-after-a-snippet
                       (setq-default mode-require-final-newline nil)
                       ;; give yas-dropdown-prompt in yas/prompt-functions a chance
                       (setq yas-prompt-functions '(yas-dropdown-prompt

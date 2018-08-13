@@ -39,12 +39,6 @@
   (define-key php-mode-map (kbd "C-c C-=") 'php-current-namespace))
 
 (defun liubang/php-mode-hook ()
-  ;; (auto-complete-mode t)
-  ;; (require 'company-php)
-  ;; (company-mode t)
-  ;; (ac-php-core-eldoc-setup) ;; enable eldoc
-  ;; (make-local-variable 'company-backends)
-  ;; (add-to-list 'company-backends 'company-ac-php-backend)
   (auto-complete-mode t)
   (require 'ac-php)
   (setq ac-sources  '(ac-source-php ))

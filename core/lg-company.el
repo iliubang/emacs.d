@@ -2,8 +2,7 @@
 ;; 
 ;; Copyright (c) 2018 Liubang
 ;; 
-;; Author: liubang <it.liubang@gmail.com>
-;; Url: https://iliubang.cn
+;; Author: liubang <it.liubang@gmail.com> Url: https://iliubang.cn
 ;; Version: 1.0
 ;;
 ;;; License

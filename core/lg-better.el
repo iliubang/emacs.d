@@ -95,41 +95,6 @@
 ;; https://oremacs.com/2017/11/30/ivy-0.10.0/ 
 (setq ivy-use-selectable-prompt t)
 
-(defun ivy-switch-buffer-matcher-pinyin (regexp candidates)
-  (unless (featurep 'pinyinlib) (require 'pinyinlib))
-  (let* ((pys (split-string regexp "[ \t]+"))
-         (regexp (format ".*%s.*"
-                         (mapconcat 'pinyinlib-build-regexp-string pys ".*"))))
-    (ivy--switch-buffer-matcher regexp candidates)))
-
-(defun ivy-switch-buffer-by-pinyin ()
-  (interactive)
-  (unless (featurep 'ivy) (require 'ivy))
-  (let ((this-command 'ivy-switch-buffer))
-    (ivy-read "Switch to buffer: " 'internal-complete-buffer
-              :matcher #'ivy-switch-buffer-matcher-pinyin
-              :preselect (buffer-name (other-buffer (current-buffer)))
-              :action #'ivy--switch-buffer-action
-              :keymap ivy-switch-buffer-map
-              :caller 'ivy-switch-buffer)))
-
-;; press "M-o" to choose ivy action
-(ivy-set-actions
-  'counsel-find-file
-  '(("j" find-file-other-frame "other frame")
-    ("b" counsel-find-file-cd-bookmark-action "cd bookmark")
-    ("x" counsel-find-file-extern "open externally")
-    ("d" delete-file "delete")
-    ("r" counsel-find-file-as-root "open as root")))
-
-;; set actions when running C-x b
-;; replace "frame" with window to open in new window
-(ivy-set-actions
-  'ivy-switch-buffer-by-pinyin
-  '(("j" switch-to-buffer-other-frame "other frame")
-    ("k" kill-buffer "kill")
-     ("r" ivy--rename-buffer-action "rename")))
-
 (with-eval-after-load 'ivy
                       ;; https://github.com/abo-abo/swiper/issues/828
                       (setq ivy-display-style 'fancy))
