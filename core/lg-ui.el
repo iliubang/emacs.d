@@ -31,14 +31,14 @@
 ;; SOFTWARE.
 
 ;; encoding
-(set-language-environment 'utf-8)
-(setq locale-coding-system 'utf-8)
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
-(setq default-file-name-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8-unix
+      default-file-name-coding-system 'utf-8-unix
+      default-keyboard-coding-system 'utf-8-unix
+      default-process-coding-system '(utf-8-unix . utf-8-unix)
+      default-sendmail-coding-system 'utf-8-unix
+      default-terminal-coding-system 'utf-8-unix)
 
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
@@ -63,7 +63,7 @@
 
 ;; font
 (setq fonts
-      (cond ((eq system-type 'darwin)     '("Monaco"    "STHeiti"))
+      (cond ((eq system-type 'darwin)     '("Monaco"    "PingFang SC"))
             ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
             ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
 
@@ -73,7 +73,7 @@
   (set-fontset-font (frame-parameter nil 'font) charset
                     (font-spec :family (car (cdr fonts)))))
 ;; Fix chinese font width and rescale
-(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2) ("STHeiti". 1.2)))
+(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2) ("PingFang SC". 1.2)))
 
 
 ;; dashboard
