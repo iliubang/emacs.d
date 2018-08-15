@@ -30,6 +30,8 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; auto wrap
+(setq truncate-lines nil)
 ;; encoding
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)

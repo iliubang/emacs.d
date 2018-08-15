@@ -84,20 +84,26 @@
               ("MEETING" :foreground "forest green" :weight bold)
               ("PHONE" :foreground "forest green" :weight bold))))
 
+(defvar lg-gtd-inbox-file (concat lg-gtd-dir "/inbox.org"))
 (defvar lg-gtd-gtd-file (concat lg-gtd-dir "/gtd.org"))
+(defvar lg-gtd-done-file (concat lg-gtd-dir "/done.org"))
 (defvar lg-gtd-note-file (concat lg-gtd-dir "/note.org"))
 (defvar lg-gtd-meeting-file (concat lg-gtd-dir "/meeting.org"))
 ;; for my work
 (defvar lg-gtd-weibo-gtd-file (concat lg-gtd-dir "/weibo.org"))
 
 ;; set agenda files directory
+(add-to-list 'org-agenda-files lg-gtd-inbox-file)
 (add-to-list 'org-agenda-files lg-gtd-gtd-file)
+(add-to-list 'org-agenda-files lg-gtd-done-file)
 (add-to-list 'org-agenda-files lg-gtd-note-file)
 (add-to-list 'org-agenda-files lg-gtd-meeting-file)
 (add-to-list 'org-agenda-files lg-gtd-weibo-gtd-file)
 
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file lg-gtd-gtd-file)
+      (quote (("t" "todo" entry (file lg-gtd-inbox-file)
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("T" "todo" entry (file lg-gtd-gtd-file)
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("w" "todo" entry (file lg-gtd-weibo-gtd-file)
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
@@ -115,8 +121,13 @@
 (setq org-agenda-inhibit-startup t) ;; ~50x speedup
 (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
 
+;; targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+;; use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path t)
 
-;; Set Org-mode Inline Image Default Size
+;; set Org-mode Inline Image Default Size
 (setq org-image-actual-width '(600))
 
 ;; key

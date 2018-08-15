@@ -83,12 +83,13 @@
         (package-refresh-contents)
         (require-package package min-version t)))))
 
-;; packages
+;;;;;;;;;;;;; pcakges
 (require-package 'diminish)
 (require-package 'avy)
 (require-package 'ivy)
 (require-package 'swiper)
 (require-package 'counsel)
+;; auto complete
 (require-package 'auto-yasnippet)
 (require-package 'counsel-gtags)
 (require-package 'yasnippet)
@@ -96,6 +97,8 @@
 (require-package 'company)
 (require-package 'company-c-headers)
 (require-package 'company-statistics)
+;; org-mode
+(require-package 'org)
 (require-package 'org-bullets)
 (require-package 'htmlize)
 (require-package 'ox-reveal)
@@ -119,7 +122,7 @@
 (require-package 'solarized-theme)
 (require-package 'zenburn-theme)
 
-;; autoload
+;;;;;;;;;;;;; autoload
 (autoload 'ivy-recentf "ivy" "" t)
 (autoload 'ivy-read "ivy")
 (autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
