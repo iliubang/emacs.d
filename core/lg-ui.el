@@ -48,6 +48,8 @@
 ;; custom ui
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+;; show cursor position within line
+(column-number-mode 1)
 (global-linum-mode 1)
 (setq inhibit-splash-screen 1)
 ;; fullscreen on startup
@@ -82,5 +84,9 @@
 (setq show-week-agenda-p t)
 (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
 (dashboard-setup-startup-hook)
+
+;; spaceline
+;; (spaceline-spacemacs-theme)
+(spaceline-emacs-theme)
 
 (provide 'lg-ui)

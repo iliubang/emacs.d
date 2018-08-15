@@ -80,6 +80,7 @@
   (require-init 'lg-ui)
   (require-init 'lg-better)
   (require-init 'lg-org)
+  (require-init 'lg-artist)
   (require-init 'lg-company)
   (require-init 'lg-yasnippet)
   ;; loading modules...

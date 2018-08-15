@@ -117,10 +117,10 @@
 (require-package 'company-php)
 (require-package 'ac-php)
 ;; ui & theme
-;; (require-package 'color-theme)
 (require-package 'dashboard)
-(require-package 'solarized-theme)
 (require-package 'zenburn-theme)
+(require-package 'spaceline)
+;; (require-package 'solarized-theme)
 
 ;;;;;;;;;;;;; autoload
 (autoload 'ivy-recentf "ivy" "" t)

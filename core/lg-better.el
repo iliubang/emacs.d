@@ -30,6 +30,15 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; env
+(if (or
+     (eq system-type 'darwin)
+     (eq system-type 'berkeley-unix))
+    (setq system-name (car (split-string system-name "\\."))))
+
+(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+(push "/usr/local/bin" exec-path)
+
 ;; enable erase-buffer command
 ;; http://emacsredux.com/blog/2013/05/04/erase-buffer/
 (put 'erase-buffer 'disabled nil)
@@ -57,6 +66,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; default indent 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
@@ -72,15 +82,6 @@
 ;; split
 (global-set-key (kbd "C-c -") 'split-window-below)
 (global-set-key (kbd "C-c |") 'split-window-right)
-
-;; env
-(if (or
-     (eq system-type 'darwin)
-     (eq system-type 'berkeley-unix))
-    (setq system-name (car (split-string system-name "\\."))))
-
-(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
-(push "/usr/local/bin" exec-path)
 
 ;; counsel
 (require 'counsel)
@@ -107,5 +108,13 @@
                     (getf autopair-extra-pairs :comment))
               (push '(?` . ?')
                     (getf autopair-extra-pairs :string))))
+
+;; undo
+(global-undo-tree-mode 1)
+;; make ctrl-z undo
+(global-set-key (kbd "C-z") 'undo)
+;; make ctrl-Z redo
+(defalias 'redo 'undo-tree-redo)
+(global-set-key (kbd "C-S-z") 'redo)
 
 (provide 'lg-better)
