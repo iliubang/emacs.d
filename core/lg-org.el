@@ -42,10 +42,21 @@
 (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js")
 
 ;; agenda toto keywords
-;; (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+;; priority
+(setq org-highest-priority ?A)
+(setq org-lowest-priority ?B)
+(setq org-default-priority ?B)
+
+;; priority faces
+(setq org-priority-faces
+      '((?A . (:background "red" :foreground "white" :weight bold))
+        (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+        (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+        (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+        (?E . (:background "SkyBlue" :foreground "black" :weight bold))))
 
 ;; Fast Todo Selection
 (setq org-use-fast-todo-selection t)
