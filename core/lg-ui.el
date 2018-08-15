@@ -60,8 +60,8 @@
 (setq split-width-threshold 0)
 
 ;; theme
-(load-theme 'solarized-light t)
-;; (load-theme 'zenburn t)
+;; (load-theme 'solarized-light t)
+(load-theme 'zenburn t)
 
 ;; font
 (setq fonts

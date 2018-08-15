@@ -31,14 +31,14 @@
 ;; SOFTWARE.
 
 ;; set .cpp/.hpp to c++-mode, and .c/.h to c-mode
-(add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.c$"   . c-mode))
+(add-to-list 'auto-mode-alist '("\\.h$"   . c-mode))
 
 (setq c-default-style '((java-mode . "java")
-                        (awk-mode . "awk")
-                        (other . "linux")))
+                        (awk-mode  . "awk")
+                        (other     . "linux")))
 ;; clang-format
 (global-set-key (kbd "C-c i") 'clang-format-region)
 (global-set-key (kbd "C-c u") 'clang-format-buffer)
