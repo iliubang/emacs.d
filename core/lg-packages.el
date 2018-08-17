@@ -86,7 +86,6 @@
 ;;;;;;;;;;;;; pcakges
 (require-package 'use-package)
 (require-package 'diminish)
-(require-package 'avy)
 ;; auto complete
 (require-package 'auto-yasnippet)
 (require-package 'counsel-gtags)

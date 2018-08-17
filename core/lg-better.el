@@ -118,6 +118,12 @@
              :config
              (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
+;; avy
+(use-package avy
+             :ensure t
+             :bind(("M-g w" . avy-goto-word-1)
+                   ("M-g f" . avy-goto-line)))
+
 ;; autopair
 (use-package autopair
              :ensure t
