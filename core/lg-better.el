@@ -83,38 +83,63 @@
 (global-set-key (kbd "C-c -") 'split-window-below)
 (global-set-key (kbd "C-c |") 'split-window-right)
 
-;; counsel
-(require 'counsel)
-(ivy-mode 1)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-(global-set-key (kbd "C-s") 'swiper)
+;; ivy 
+(use-package ivy
+             :commands (ivy-recentf ivy-read)
+             :ensure t
+             :diminish (ivy-mode)
+             :bind (("C-x b" . ivy-switch-buffer))
+             :config
+             (ivy-mode 1)
+             (setq ivy-use-virtual-buffers t)
+             ;; https://github.com/abo-abo/swiper/issues/828
+             (setq ivy-display-style 'fancy)
+             ;; https://github.com/abo-abo/swiper/issues/1218 
+             (setq ivy-dynamic-exhibit-delay-ms 250)
+             ;; https://oremacs.com/2017/11/30/ivy-0.10.0/
+             (setq ivy-use-selectable-prompt t))
 
-;; https://github.com/abo-abo/swiper/issues/1218 
-(setq ivy-dynamic-exhibit-delay-ms 250) 
-;; https://oremacs.com/2017/11/30/ivy-0.10.0/ 
-(setq ivy-use-selectable-prompt t)
-
-(with-eval-after-load 'ivy
-                      ;; https://github.com/abo-abo/swiper/issues/828
-                      (setq ivy-display-style 'fancy))
+;; swiper
+(use-package swiper
+             :ensure t
+             :bind (("C-s" . swiper)
+                    ("C-c C-r" . ivy-resume)
+                    ("M-x" . counsel-M-x)
+                    ("C-x C-f" . counsel-find-file)
+                    ("C-h f" . counsel-describe-function)
+                    ("C-h v" . counsel-describe-variable)
+                    ("C-h l" . counsel-find-library)
+                    ("C-h i" . counsel-info-lookup-symbol)
+                    ("C-h u" . counsel-unicode-char)
+                    ("C-c g" . counsel-git)
+                    ("C-c j" . counsel-git-grep)
+                    ("C-c k" . counsel-ag)
+                    ("C-c l" . counsel-locate))
+             :config
+             (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
 ;; autopair
-(autopair-global-mode)
-(add-hook 'emacs-lisp-mode-hook
-          #'(lambda ()
-              (push '(?` . ?')
-                    (getf autopair-extra-pairs :comment))
-              (push '(?` . ?')
-                    (getf autopair-extra-pairs :string))))
+(use-package autopair
+             :ensure t
+             :init
+             (add-hook 'emacs-lisp-mode-hook
+                       #'(lambda ()
+                            (push '(?` . ?')
+                                  (getf autopair-extra-pairs :comment))
+                            (push '(?` . ?')
+                                  (getf autopair-extra-pairs :string))))
+             :config
+             (autopair-global-mode))
 
 ;; undo
-(global-undo-tree-mode 1)
-;; make ctrl-z undo
-(global-set-key (kbd "C-z") 'undo)
-;; make ctrl-Z redo
-(defalias 'redo 'undo-tree-redo)
-(global-set-key (kbd "C-S-z") 'redo)
+(use-package undo-tree
+             :ensure t
+             :init
+             (global-undo-tree-mode 1)
+             ;; make ctrl-z undo
+             :bind(("C-z" . undo))
+             :config
+             ;; make ctrl-Z redo
+             (defalias 'redo 'undo-tree-redo))
 
 (provide 'lg-better)

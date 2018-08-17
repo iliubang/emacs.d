@@ -84,11 +84,9 @@
         (require-package package min-version t)))))
 
 ;;;;;;;;;;;;; pcakges
+(require-package 'use-package)
 (require-package 'diminish)
 (require-package 'avy)
-(require-package 'ivy)
-(require-package 'swiper)
-(require-package 'counsel)
 ;; auto complete
 (require-package 'auto-yasnippet)
 (require-package 'counsel-gtags)
@@ -102,12 +100,10 @@
 (require-package 'org-bullets)
 (require-package 'htmlize)
 (require-package 'ox-reveal)
-(require-package 'undo-tree)
 (require-package 'pinyinlib)
 (require-package 'find-by-pinyin-dired)
 (require-package 'command-log-mode)
 ;; autopair
-(require-package 'autopair)
 ;; clang
 (require-package 'clang-format)
 (require-package 'cmake-mode)
@@ -123,8 +119,8 @@
 ;; (require-package 'solarized-theme)
 
 ;;;;;;;;;;;;; autoload
-(autoload 'ivy-recentf "ivy" "" t)
-(autoload 'ivy-read "ivy")
+;; (autoload 'ivy-recentf "ivy" "" t)
+;; (autoload 'ivy-read "ivy")
 (autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
 (autoload 'counsel-etags-scan-code "counsel-etags" "" t nil)
 (autoload 'counsel-etags-grep "counsel-etags" "" t nil)
