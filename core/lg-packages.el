@@ -86,9 +86,5 @@
 ;;;;;;;;;;;;; pcakges
 (require-package 'use-package)
 (require-package 'diminish)
-;; org-mode
-(require-package 'pinyinlib)
-(require-package 'find-by-pinyin-dired)
-(require-package 'command-log-mode)
 
 (provide 'lg-packages)
