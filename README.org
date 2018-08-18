@@ -5,6 +5,8 @@
 
 This is my Emacs configuration.
 
+[[screenshot][./screenshot/1.png]]
+
 ** dependencies
 *** [[https://github.com/xcwen/phpctags][phpctags]]
 *** gtags
