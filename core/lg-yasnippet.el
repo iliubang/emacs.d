@@ -30,35 +30,29 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(require 'yasnippet)
+(use-package yasnippet
+             :ensure t
+             :mode ("\\.yasnippet\\'" . snippet-mode)
+             :config
+             ;; my private snippets, should be placed before enabling yasnippet
+             (setq custom-yasnippets (expand-file-name "snippets" lg-dir))
+             (if (and (file-exists-p custom-yasnippets) (not (member custom-yasnippets yas-snippet-dirs)))
+               (add-to-list 'yas-snippet-dirs custom-yasnippets))
+             (setq-default mode-require-final-newline nil)
+             ;; give yas-dropdown-prompt in yas/prompt-functions a chance
+             (setq yas-prompt-functions '(yas-dropdown-prompt
+                                          yas-ido-prompt
+                                          yas-completing-prompt))
+             (defadvice yas-insert-snippet (around use-completing-prompt activate)
+               (let* ((yas-prompt-functions '(yas-completing-prompt)))
+                 ad-do-it))
+             (yas-global-mode 1))
 
-;; my private snippets, should be placed before enabling yasnippet
-(setq custom-yasnippets (expand-file-name "snippets-custom" lg-dir))
-
-(if (and (file-exists-p custom-yasnippets) (not (member custom-yasnippets yas-snippet-dirs)))
-  (add-to-list 'yas-snippet-dirs custom-yasnippets))
-
-(yas-reload-all)
-
-(defun liubang/yasnippet-setup-hook()
-    (yas-minor-mode 1))
-
-(add-hook 'prog-mode-hook 'liubang/yasnippet-setup-hook)
-(add-hook 'text-mode-hook 'liubang/yasnippet-setup-hook)
-(add-hook 'cmake-mode-hook 'liubang/yasnippet-setup-hook)
-(add-hook 'web-mode-hook 'liubang/yasnippet-setup-hook)
-(add-hook 'scss-mode-hook 'liubang/yasnippet-setup-hook)
-
-(add-to-list 'auto-mode-alist '("\\.yasnippet\\'" . snippet-mode))
-
-(with-eval-after-load 'yasnippet
-                      (setq-default mode-require-final-newline nil)
-                      ;; give yas-dropdown-prompt in yas/prompt-functions a chance
-                      (setq yas-prompt-functions '(yas-dropdown-prompt
-                                                    yas-ido-prompt
-                                                    yas-completing-prompt))
-                      (defadvice yas-insert-snippet (around use-completing-prompt activate)
-                                 (let* ((yas-prompt-functions '(yas-completing-prompt)))
-                                    ad-do-it)))
+;; auto yasnippet
+;; https://github.com/abo-abo/auto-yasnippet
+(use-package auto-yasnippet
+             :ensure t
+             :bind(("H-w" . aya-create)
+                   ("H-y" . aya-expand)))
 
 (provide 'lg-yasnippet)

@@ -87,10 +87,7 @@
 (require-package 'use-package)
 (require-package 'diminish)
 ;; auto complete
-(require-package 'auto-yasnippet)
 (require-package 'counsel-gtags)
-(require-package 'yasnippet)
-(require-package 'yasnippet-snippets)
 (require-package 'company)
 (require-package 'company-c-headers)
 (require-package 'company-statistics)
@@ -107,8 +104,6 @@
 (require-package 'company-php)
 (require-package 'ac-php)
 ;;;;;;;;;;;;; autoload
-;; (autoload 'ivy-recentf "ivy" "" t)
-;; (autoload 'ivy-read "ivy")
 (autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
 (autoload 'counsel-etags-scan-code "counsel-etags" "" t nil)
 (autoload 'counsel-etags-grep "counsel-etags" "" t nil)
