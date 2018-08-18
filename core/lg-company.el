@@ -29,18 +29,11 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(use-package company-statistics
-             :ensure t
-             :config (add-hook 'after-init-hook 'company-statistics-mode))
-
 (use-package company
              :ensure t
              :init (global-company-mode)
              :config
              (progn
-                ;; https://github.com/company-mode/company-mode/issues/348
-                ;; (add-to-list 'company-backends 'company-cmake)
-                ;; (add-to-list 'company-backends 'company-c-headers)
                 (setq company-backends (delete 'company-ropemacs company-backends))
                 (setq company-dabbrev-downcase nil
                       ;; make previous/next selection in the popup cycles
@@ -61,8 +54,6 @@
                 ;; `M-x describe-variable company-auto-complete-chars` for details
                 ;; That's BAD idea.
                 (setq company-auto-complete nil)
-                (add-to-list 'company-etags-modes 'web-mode)
-                (add-to-list 'company-etags-modes 'lua-mode)
                 ;; NOT to load company-mode for certain major modes.
                 ;; https://github.com/company-mode/company-mode/issues/29
                 ;; (setq company-global-modes
@@ -71,5 +62,11 @@
                 (define-key company-active-map (kbd "M-p") nil)
                 (define-key company-active-map (kbd "C-n") #'company-select-next)
                 (define-key company-active-map (kbd "C-p") #'company-select-previous)))
+
+;; company-statistics
+(use-package company-statistics
+             :ensure t
+             :after company
+             :config (add-hook 'after-init-hook 'company-statistics-mode))
 
 (provide 'lg-company)

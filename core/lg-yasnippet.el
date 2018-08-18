@@ -33,7 +33,6 @@
 ;; yasnippet
 (use-package yasnippet
              :ensure t
-             :mode ("\\.yasnippet\\'" . snippet-mode)
              :config
              ;; my private snippets, should be placed before enabling yasnippet
              (setq custom-yasnippets (expand-file-name "snippets" lg-dir))

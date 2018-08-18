@@ -6,7 +6,12 @@
 This is my Emacs configuration.
 
 ** dependencies
-   - [[https://github.com/xcwen/phpctags][phpctags]]
+*** [[https://github.com/xcwen/phpctags][phpctags]]
+*** gtags
+
+#+BEGIN_SRC shell
+  brew install global
+#+END_SRC
 
 ** install
 

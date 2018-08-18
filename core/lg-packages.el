@@ -86,24 +86,9 @@
 ;;;;;;;;;;;;; pcakges
 (require-package 'use-package)
 (require-package 'diminish)
-;; auto complete
-(require-package 'counsel-gtags)
-;; (require-package 'company)
 ;; org-mode
 (require-package 'pinyinlib)
 (require-package 'find-by-pinyin-dired)
 (require-package 'command-log-mode)
-;; clang
-(require-package 'clang-format)
-(require-package 'cmake-mode)
-(require-package 'cpputils-cmake)
-
-;;;;;;;;;;;;; autoload
-(autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
-(autoload 'counsel-etags-scan-code "counsel-etags" "" t nil)
-(autoload 'counsel-etags-grep "counsel-etags" "" t nil)
-(autoload 'counsel-etags-grep-symbol-at-point "counsel-etags" "" t nil)
-(autoload 'counsel-etags-recent-tag "counsel-etags" "" t nil)
-(autoload 'web-mode "web-mode")
 
 (provide 'lg-packages)

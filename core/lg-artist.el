@@ -30,9 +30,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-;; (eval-after-load "artist"
-;;    '(define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation))
-
 (add-hook 'artist-mode-hook
       (lambda ()
         (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)

@@ -124,9 +124,18 @@
                     ;; org-indent
                     (eval-after-load "org-indent" '(diminish 'org-indent-mode))))
 
+;; https://github.com/zweifisch/ob-http
+(use-package ob-http
+             :after org
+             :defer t)
+
+;; https://github.com/pope/ob-go
+(use-package ob-go
+             :after org
+             :defer t)
+
 ;; org-bullets
 (use-package org-bullets
-             :ensure t
              :after org
              :config
              (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
@@ -141,7 +150,6 @@
                        htmlize-region))
 ;; org-reveal
 (use-package ox-reveal
-             :ensure t
              :after org
              :config
              (setq org-reveal-mathjax t)
