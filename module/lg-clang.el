@@ -30,6 +30,25 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+(use-package company-c-headers
+             :ensure t
+             :after company
+             :config
+             (add-to-list 'company-backends 'company-c-headers))
+
+;; company-cmake
+(use-package cmake-mode
+             :ensure t
+             :config
+             (add-to-list 'company-backends 'company-cmake))
+
+;; clang-format
+(use-package clang-format
+             :ensure t
+             :commands(clang-format-buffer clang-format-region)
+             :bind(("C-c i" . clang-format-region)
+                   ("C-c u" . clang-format-buffer)))
+
 ;; set .cpp/.hpp to c++-mode, and .c/.h to c-mode
 (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
@@ -39,9 +58,6 @@
 (setq c-default-style '((java-mode . "java")
                         (awk-mode  . "awk")
                         (other     . "linux")))
-;; clang-format
-(global-set-key (kbd "C-c i") 'clang-format-region)
-(global-set-key (kbd "C-c u") 'clang-format-buffer)
 
 (defun fix-c-indent-offset-according-to-syntax-context (key val)
   (setq c-offsets-alist (delq (assoc key c-offsets-alist) c-offsets-alist))
@@ -55,7 +71,12 @@
   (c-toggle-hungry-state 1) 
   (fix-c-indent-offset-according-to-syntax-context 'substatement 0)
   (fix-c-indent-offset-according-to-syntax-context 'func-decl-cont 0)
-  (setq cc-search-directories '("." "/usr/include" "/usr/local/include/*" "../*/include" "$WXWIN/include")) 
+  ;; include path
+  (setq cc-search-directories '("." 
+                                "/usr/include" 
+                                "/usr/local/include/*" 
+                                "../*/include" 
+                                "$WXWIN/include")) 
   ;; make a #define be left-aligned
   (setq c-electric-pound-behavior (quote (alignleft)))
   (when buffer-file-name
@@ -63,7 +84,7 @@
     (if (executable-find "cmake")
       (if (not (or (string-match "^/usr/local/include/.*" buffer-file-name)
                    (string-match "^/usr/src/linux/include/.*" buffer-file-name)))
-					(cppcm-reload-all)))))
+                    (cppcm-reload-all)))))
 
 ;; c-mode-hook
 (add-hook 'c-mode-common-hook 'liubang/cedet-hook)

@@ -88,9 +88,7 @@
 (require-package 'diminish)
 ;; auto complete
 (require-package 'counsel-gtags)
-(require-package 'company)
-(require-package 'company-c-headers)
-(require-package 'company-statistics)
+;; (require-package 'company)
 ;; org-mode
 (require-package 'pinyinlib)
 (require-package 'find-by-pinyin-dired)
@@ -99,10 +97,7 @@
 (require-package 'clang-format)
 (require-package 'cmake-mode)
 (require-package 'cpputils-cmake)
-;; php
-(require-package 'php-mode)
-(require-package 'company-php)
-(require-package 'ac-php)
+
 ;;;;;;;;;;;;; autoload
 (autoload 'counsel-etags-find-tag-at-point "counsel-etags" "" t nil)
 (autoload 'counsel-etags-scan-code "counsel-etags" "" t nil)
@@ -110,9 +105,5 @@
 (autoload 'counsel-etags-grep-symbol-at-point "counsel-etags" "" t nil)
 (autoload 'counsel-etags-recent-tag "counsel-etags" "" t nil)
 (autoload 'web-mode "web-mode")
-(autoload 'snippet-mode "yasnippet" "")
-(autoload 'clang-format-region "clang-format")
-(autoload 'clang-format-buffer "clang-format")
-(autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
 
 (provide 'lg-packages)

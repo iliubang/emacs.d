@@ -127,6 +127,7 @@
 ;; org-bullets
 (use-package org-bullets
              :ensure t
+             :after org
              :config
              (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
              (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -141,6 +142,7 @@
 ;; org-reveal
 (use-package ox-reveal
              :ensure t
+             :after org
              :config
              (setq org-reveal-mathjax t)
              (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"))

@@ -30,6 +30,7 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; yasnippet
 (use-package yasnippet
              :ensure t
              :mode ("\\.yasnippet\\'" . snippet-mode)
@@ -48,10 +49,16 @@
                  ad-do-it))
              (yas-global-mode 1))
 
+;; yasnippet-snippets
+(use-package yasnippet-snippets
+             :after yasnippet
+             :ensure t)
+
 ;; auto yasnippet
 ;; https://github.com/abo-abo/auto-yasnippet
 (use-package auto-yasnippet
              :ensure t
+             :commands(aya-create aya-expand)
              :bind(("H-w" . aya-create)
                    ("H-y" . aya-expand)))
 
