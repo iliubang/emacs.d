@@ -45,18 +45,18 @@
 
 (use-package anaconda-mode
              :after python
-             :defer t
+             :ensure t
              :hook ((python-mode . anaconda-mode)
                     (python-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
              :after (company anaconda-mode)
-             :defer t
+             :ensure t
              :init
              (push 'company-anaconda company-backends))
 
 (use-package pyvenv
-             :defer t
+             :ensure t
              :hook (python-mode . pyvenv-mode))
 
 (use-package pyenv-mode
@@ -70,17 +70,12 @@
                    (pyenv-mode-unset))))
              (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set))
 
-;; (use-package jedi
-;;              :ensure t
-;;              :config
-;;              (setq jedi:complete-on-dot t)
-;;              (add-hook 'python-mode-hook 'jedi:setup)
-;;              (add-hook 'python-mode-hook 'jedi:ac-setup))
-
 (use-package pip-requirements
-             :defer t)
+             :ensure t
+             :after python)
 
-(use-package cython-mode
-             :defer t)
+;; (use-package cython-mode
+;;              :ensure t
+;;              :after python)
 
 (provide 'lg-python)
