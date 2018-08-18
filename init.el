@@ -34,6 +34,9 @@
 (setq user-full-name "liubang")
 (setq user-mail-address "it.liubang@gmail.com")
 
+;; the frequency of GC
+(setq gc-cons-threshold 50000000)
+
 (defvar current-user
   (getenv 
     (if (equal system-type 'windows-nt) "USERNAME" "USER")))

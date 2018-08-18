@@ -42,8 +42,20 @@
      (eq system-type 'berkeley-unix))
     (setq system-name (car (split-string system-name "\\."))))
 
-(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
-(push "/usr/local/bin" exec-path)
+(use-package exec-path-from-shell
+             :ensure t
+             :config
+             (setq exec-path-from-shell-variables '("PATH" "GOPATH" "JAVA_HOME"))
+             (when (memq window-system '(mac ns x))
+               (exec-path-from-shell-initialize)))
+
+;; (setenv "PATH" (concat "/usr/local/bin:" 
+;;                        "~/.pyenv/shims/virtualenv"
+;;                        "~/.pyenv/bin"
+;;                        "~/.pyenv/shims"
+;;                        "~/.phpbrew/php/php-7.2.8/bin"
+;;                        "/usr/bin"
+;;                        (getenv "PATH")))
 
 ;; enable erase-buffer command
 ;; http://emacsredux.com/blog/2013/05/04/erase-buffer/
@@ -52,9 +64,6 @@
 
 ;; Always load newest byte code.
 (setq load-prefer-newer t)
-
-;; the frequency of GC
-(setq gc-cons-threshold 50000000)
 
 ;; warn when opening files bigger then 100MB
 (setq large-file-warning-threshold 100000000)

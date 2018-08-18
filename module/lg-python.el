@@ -70,27 +70,15 @@
                    (pyenv-mode-unset))))
              (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set))
 
-(use-package sphinx-doc
-             :after python
-             :defer t
-             :diminish sphinx-doc-mode
-             :hook (python-mode . sphinx-doc-mode))
-
-(use-package importmagic
-             :after python
-             :defer t
-             :diminish importmagic-mode
-             :hook (python-mode . importmagic-mode)
-             :init
-             (add-to-list 'ivy-ignore-buffers "\\*epc con"))
+;; (use-package jedi
+;;              :ensure t
+;;              :config
+;;              (setq jedi:complete-on-dot t)
+;;              (add-hook 'python-mode-hook 'jedi:setup)
+;;              (add-hook 'python-mode-hook 'jedi:ac-setup))
 
 (use-package pip-requirements
              :defer t)
-
-;; (use-package py-autopep8
-;;              :after python
-;;              :defer t
-;;              :hook (python-mode . py-autopep8-enable-on-save))
 
 (use-package cython-mode
              :defer t)

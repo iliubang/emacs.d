@@ -32,7 +32,7 @@
 
 ;; org
 (use-package org
-             :ensure t
+             :defer t
              :mode ("\\.org\\'" . org-mode)
              :bind (("C-c l" . org-store-link)
                     ("C-c a" . org-agenda)
@@ -137,12 +137,14 @@
 ;; org-bullets
 (use-package org-bullets
              :after org
+             :defer t
              :config
              (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
              (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; htmlize
 (use-package htmlize
+             :defer t
              :commands(htmlize-buffer
                        htmlize-file
                        htmlize-many-files
@@ -151,6 +153,7 @@
 ;; org-reveal
 (use-package ox-reveal
              :after org
+             :defer t
              :config
              (setq org-reveal-mathjax t)
              (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"))
