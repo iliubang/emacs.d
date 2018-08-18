@@ -29,7 +29,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(message "global-company-mode")
 (add-hook 'after-init-hook 'global-company-mode)
 
 (with-eval-after-load 'company

@@ -95,14 +95,9 @@
 (require-package 'company-c-headers)
 (require-package 'company-statistics)
 ;; org-mode
-(require-package 'org)
-(require-package 'org-bullets)
-(require-package 'htmlize)
-(require-package 'ox-reveal)
 (require-package 'pinyinlib)
 (require-package 'find-by-pinyin-dired)
 (require-package 'command-log-mode)
-;; autopair
 ;; clang
 (require-package 'clang-format)
 (require-package 'cmake-mode)
@@ -111,12 +106,6 @@
 (require-package 'php-mode)
 (require-package 'company-php)
 (require-package 'ac-php)
-;; ui & theme
-(require-package 'dashboard)
-(require-package 'zenburn-theme)
-(require-package 'spaceline)
-;; (require-package 'solarized-theme)
-
 ;;;;;;;;;;;;; autoload
 ;; (autoload 'ivy-recentf "ivy" "" t)
 ;; (autoload 'ivy-read "ivy")

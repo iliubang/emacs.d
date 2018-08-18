@@ -63,7 +63,10 @@
 
 ;; theme
 ;; (load-theme 'solarized-light t)
-(load-theme 'zenburn t)
+(use-package zenburn-theme
+             :ensure t
+             :config
+             (load-theme 'zenburn t))
 
 ;; font
 (setq fonts
@@ -81,12 +84,17 @@
 
 
 ;; dashboard
-(setq show-week-agenda-p t)
-(setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
-(dashboard-setup-startup-hook)
+(use-package dashboard
+             :ensure t
+             :config
+             (setq show-week-agenda-p t)
+             (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
+             (dashboard-setup-startup-hook))
 
 ;; spaceline
-;; (spaceline-spacemacs-theme)
-(spaceline-emacs-theme)
+(use-package spaceline
+             :ensure t
+             :config
+             (spaceline-emacs-theme))
 
 (provide 'lg-ui)
