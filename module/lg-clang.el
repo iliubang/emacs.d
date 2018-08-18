@@ -1,4 +1,4 @@
-;;; clang.el
+;;; lg-clang.el
 ;; 
 ;; Copyright (c) 2018 Liubang
 ;; 

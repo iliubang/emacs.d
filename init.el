@@ -87,7 +87,9 @@
   (message "Loading modules...")
   ;; load extra modules
   (require-module 'lg-clang)
+  (require-module 'lg-python)
   (require-module 'lg-php)
+  (require-module 'lg-go)
 )
 
 (if (file-exists-p lg-custom-file) (load-file lg-custom-file))
