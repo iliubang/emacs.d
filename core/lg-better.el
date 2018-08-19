@@ -151,7 +151,7 @@
   :ensure t 
   :commands(er/expand-region er/mark-word er/mark-inside-quotes er/mark-outside-quotes
                              er/mark-inside-pairs er/mark-outside-pairs) 
-  :bind(("C-=" . er/expand-region)
+  :bind(("C-=" . er/expand-region) 
         ("C-'" . er/mark-inside-quotes)))
 
 ;; undo
@@ -164,5 +164,14 @@
   :config
   ;; make ctrl-Z redo
   (defalias 'redo 'undo-tree-redo))
+
+;; dired
+(with-eval-after-load 'dired 
+  (setq dired-recursive-copies 'always) 
+  (setq dired-recursive-deletes 'always) 
+  (put 'dired-find-alternate-file 'disabled nil) 
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) 
+  (require 'dired-x) 
+  (setq dired-dwin-target 1))
 
 (provide 'lg-better)
