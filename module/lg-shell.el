@@ -1,7 +1,7 @@
 ;;; lg-shell.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -30,11 +30,13 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(use-package eshell-bookmark
-             :defer t
-             :hook (eshell-mode . eshell-bookmark-setup))
+(use-package 
+  eshell-bookmark 
+  :defer t 
+  :hook (eshell-mode . eshell-bookmark-setup))
 
-(use-package systemd
-             :defer t)
+(use-package 
+  systemd 
+  :defer t)
 
 (provide 'lg-shell)

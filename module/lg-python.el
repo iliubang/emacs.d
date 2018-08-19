@@ -1,7 +1,7 @@
 ;;; lg-python.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -30,49 +30,50 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(use-package python
-             :mode ("\\.py\\'" . python-mode)
-             :interpreter ("python" . python-mode)
-             :preface
-             (defun py/init-company ()
-               (set (make-local-variable 'company-backends)
-                    '(company-capf company-yasnippet))
-               (company-mode t))
-             :hook ((python-mode . py/init-company))
-             :init
-             (setq python-shell-interpreter "ipython"
-                   python-shell-interpreter-args "--simple-prompt -i"))
+(use-package 
+  python 
+  :mode ("\\.py\\'" . python-mode) 
+  :interpreter ("python" . python-mode) 
+  :preface (defun py/init-company () 
+             (set (make-local-variable 'company-backends) 
+                  '(company-capf company-yasnippet)) 
+             (company-mode t)) 
+  :hook ((python-mode . py/init-company)) 
+  :init (setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt -i"))
 
-(use-package anaconda-mode
-             :after python
-             :ensure t
-             :hook ((python-mode . anaconda-mode)
-                    (python-mode . anaconda-eldoc-mode)))
+(use-package 
+  anaconda-mode 
+  :after python 
+  :ensure t 
+  :hook ((python-mode . anaconda-mode) 
+         (python-mode . anaconda-eldoc-mode)))
 
-(use-package company-anaconda
-             :after (company anaconda-mode)
-             :ensure t
-             :init
-             (push 'company-anaconda company-backends))
+(use-package 
+  company-anaconda 
+  :after (company anaconda-mode) 
+  :ensure t 
+  :init (push 'company-anaconda company-backends))
 
-(use-package pyvenv
-             :ensure t
-             :hook (python-mode . pyvenv-mode))
+(use-package 
+  pyvenv 
+  :ensure t 
+  :hook (python-mode . pyvenv-mode))
 
-(use-package pyenv-mode
-             :hook (python-mode . pyenv-mode)
-             :commands (pyenv-mode-set pyenv-mode-unset pyenv-mode-versions)
-             :init
-             (defun projectile-pyenv-mode-set ()
-               (let ((project (projectile-project-name)))
-                 (if (member project (pyenv-mode-versions))
-                   (pyenv-mode-set project)
-                   (pyenv-mode-unset))))
-             (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set))
+(use-package 
+  pyenv-mode 
+  :hook (python-mode . pyenv-mode) 
+  :commands (pyenv-mode-set pyenv-mode-unset pyenv-mode-versions) 
+  :init (defun projectile-pyenv-mode-set () 
+          (let ((project (projectile-project-name))) 
+            (if (member project (pyenv-mode-versions)) 
+                (pyenv-mode-set project) 
+              (pyenv-mode-unset)))) 
+  (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set))
 
-(use-package pip-requirements
-             :ensure t
-             :after python)
+(use-package 
+  pip-requirements 
+  :ensure t 
+  :after python)
 
 ;; (use-package cython-mode
 ;;              :ensure t

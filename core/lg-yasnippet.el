@@ -1,7 +1,7 @@
 ;;; lg-yasnippet.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -31,34 +31,35 @@
 ;; SOFTWARE.
 
 ;; yasnippet
-(use-package yasnippet
-             :ensure t
-             :config
-             ;; my private snippets, should be placed before enabling yasnippet
-             (setq custom-yasnippets (expand-file-name "snippets" lg-dir))
-             (if (and (file-exists-p custom-yasnippets) (not (member custom-yasnippets yas-snippet-dirs)))
-               (add-to-list 'yas-snippet-dirs custom-yasnippets))
-             (setq-default mode-require-final-newline nil)
-             ;; give yas-dropdown-prompt in yas/prompt-functions a chance
-             (setq yas-prompt-functions '(yas-dropdown-prompt
-                                          yas-ido-prompt
-                                          yas-completing-prompt))
-             (defadvice yas-insert-snippet (around use-completing-prompt activate)
-               (let* ((yas-prompt-functions '(yas-completing-prompt)))
-                 ad-do-it))
-             (yas-global-mode 1))
+(use-package 
+  yasnippet 
+  :ensure t 
+  :config
+  ;; my private snippets, should be placed before enabling yasnippet
+  (setq custom-yasnippets (expand-file-name "snippets" lg-dir)) 
+  (if (and (file-exists-p custom-yasnippets) 
+           (not (member custom-yasnippets yas-snippet-dirs))) 
+      (add-to-list 'yas-snippet-dirs custom-yasnippets)) 
+  (setq-default mode-require-final-newline nil)
+  ;; give yas-dropdown-prompt in yas/prompt-functions a chance
+  (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt)) 
+  (defadvice yas-insert-snippet (around use-completing-prompt activate) 
+    (let* ((yas-prompt-functions '(yas-completing-prompt))) ad-do-it)) 
+  (yas-global-mode 1))
 
 ;; yasnippet-snippets
-(use-package yasnippet-snippets
-             :after yasnippet
-             :ensure t)
+(use-package 
+  yasnippet-snippets 
+  :after yasnippet 
+  :ensure t)
 
 ;; auto yasnippet
 ;; https://github.com/abo-abo/auto-yasnippet
-(use-package auto-yasnippet
-             :ensure t
-             :commands(aya-create aya-expand)
-             :bind(("H-w" . aya-create)
-                   ("H-y" . aya-expand)))
+(use-package 
+  auto-yasnippet 
+  :ensure t 
+  :commands(aya-create aya-expand) 
+  :bind(("H-w" . aya-create) 
+        ("H-y" . aya-expand)))
 
 (provide 'lg-yasnippet)

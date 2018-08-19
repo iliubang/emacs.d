@@ -1,7 +1,7 @@
 ;;; lg-artist.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -30,14 +30,14 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(add-hook 'artist-mode-hook
-      (lambda ()
-        (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)
-        (local-set-key (kbd "<f1>") 'org-mode)
-        (local-set-key (kbd "<f2>") 'artist-select-op-pen-line) ; f2 = pen mode
-        (local-set-key (kbd "<f3>") 'artist-select-op-line)     ; f3 = line
-        (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
-        (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
-        (local-set-key (kbd "C-z") 'undo)))
+(add-hook 'artist-mode-hook (lambda () 
+                              (define-key artist-mode-map [(down-mouse-3)]
+                                'artist-mouse-choose-operation) 
+                              (local-set-key (kbd "<f1>") 'org-mode) 
+                              (local-set-key (kbd "<f2>") 'artist-select-op-pen-line) ; f2 = pen mode
+                              (local-set-key (kbd "<f3>") 'artist-select-op-line) ; f3 = line
+                              (local-set-key (kbd "<f4>") 'artist-select-op-square) ; f4 = rectangle
+                              (local-set-key (kbd "<f5>") 'artist-select-op-ellipse) ; f5 = ellipse
+                              (local-set-key (kbd "C-z") 'undo)))
 
 (provide 'lg-artist)

@@ -1,7 +1,7 @@
 ;;; lg-utils.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -31,18 +31,23 @@
 ;; SOFTWARE.
 
 ;; http://ergoemacs.org/emacs/emacs_show_key_and_command.html
-(use-package command-log-mode
-             :defer t
-             :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer)
-             :config
-             (add-hook 'prog-mode-hook 'command-log-mode))
+(use-package 
+  command-log-mode 
+  :defer t 
+  :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer) 
+  :config (add-hook 'prog-mode-hook 'command-log-mode))
 
-(defun liubang/live-coding ()
-  (interactive)
+(defun liubang/live-coding () 
+  (interactive) 
   (clm/open-command-log-buffer))
 
-(defun liubang/print-path()
-  (interactive)
+(defun liubang/print-path() 
+  (interactive) 
   (message (getenv "PATH")))
+
+
+(use-package 
+  elisp-format 
+  :ensure t)
 
 (provide 'lg-utils)

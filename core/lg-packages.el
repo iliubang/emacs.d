@@ -1,7 +1,7 @@
 ;;; lg-packages.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -37,51 +37,46 @@
 (require 'cl)
 (setq tls-checktruct t)
 
-(setq python (or (executable-find "py.ext")
+(setq python (or (executable-find "py.ext") 
                  (executable-find "python")))
 
-(let ((trustfile
-        (replace-regexp-in-string
-          "\\\\" "/"
-          (replace-regexp-in-string
-            "\n" ""
-            (shell-command-to-string (concat python " -m certifi"))))))
-  (setq tls-program
-        (list
-          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                  (if (eq window-system 'w32) ".exe" "") trustfile)))
-  (setq gnutls-verify-error t)
+(let ((trustfile (replace-regexp-in-string "\\\\" "/" (replace-regexp-in-string "\n" ""
+                                                                                (shell-command-to-string
+                                                                                 (concat python
+                                                                                         " -m certifi")))))) 
+  (setq tls-program (list (format "gnutls-cli%s --x509cafile %s -p %%p %%h" (if (eq window-system
+                                                                                    'w32) ".exe" "")
+                                  trustfile))) 
+  (setq gnutls-verify-error t) 
   (setq gnutls-trustfiles (list trustfile)))
 
 ;; add marmalade to package repos
-(setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-						 ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
-						 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+(setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
+                         ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/") 
+                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 ;; ini packages
 (package-initialize)
 
-(unless (and (file-exists-p (concat lg-dir "elpa/archives/org-elpa"))
-             (file-exists-p (concat lg-dir "elpa/archives/melpa"))
-             (file-exists-p (concat lg-dir "elpa/archives/melpa-stable")))
+(unless (and (file-exists-p (concat lg-dir "elpa/archives/org-elpa")) 
+             (file-exists-p (concat lg-dir "elpa/archives/melpa")) 
+             (file-exists-p (concat lg-dir "elpa/archives/melpa-stable"))) 
   (package-refresh-contents))
 
 ;; Patch up annoying package.el quirks
-(defadvice package-generate-autoloads (after close-autoloads (name pkg-dir) activate)
-           (let* ((path (expand-file-name (concat
-                                   (if (symbolp name) (symbol-name name) name)
-                                   "-autoloads.el") pkg-dir)))
-             (with-current-buffer (find-file-existing path)
-                         (kill-buffer nil))))
+(defadvice package-generate-autoloads (after close-autoloads (name pkg-dir) activate) 
+  (let* ((path (expand-file-name (concat (if (symbolp name) 
+                                             (symbol-name name) name) "-autoloads.el") pkg-dir))) 
+    (with-current-buffer (find-file-existing path) 
+      (kill-buffer nil))))
 
-(defun require-package (package &optional min-version no-refresh)
-  (if (package-installed-p package min-version) 
-    t
-    (if (or (assoc package package-archive-contents) no-refresh)
-      (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
+(defun require-package (package &optional min-version no-refresh) 
+  (if (package-installed-p package min-version) t (if (or (assoc package package-archive-contents) 
+                                                          no-refresh) 
+                                                      (package-install package) 
+                                                    (progn (package-refresh-contents) 
+                                                           (require-package package min-version
+                                                                            t)))))
 
 ;;;;;;;;;;;;; pcakges
 (require-package 'use-package)

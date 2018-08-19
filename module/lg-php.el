@@ -1,7 +1,7 @@
 ;;; lg-php.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -31,40 +31,41 @@
 ;; SOFTWARE.
 
 ;; php-mode
-(use-package php-mode
-             :ensure t
-             :mode (("\\.php$" . php-mode)
-                    ("\\.phpt$" . php-mode))
-             :config
-             (require 'php-ext)
-             (define-key php-mode-map (kbd "C-c C--") 'php-current-class)
-             (define-key php-mode-map (kbd "C-c C-=") 'php-current-namespace))
+(use-package 
+  php-mode 
+  :ensure t 
+  :mode (("\\.php$" . php-mode) 
+         ("\\.phpt$" . php-mode)) 
+  :config (require 'php-ext) 
+  (define-key php-mode-map (kbd "C-c C--") 'php-current-class) 
+  (define-key php-mode-map (kbd "C-c C-=") 'php-current-namespace))
 
 ;; company-php
-(use-package company-php
-             :ensure t
-             :after(ac-php php-mode)
-             :config
-             (company-mode t)
-             (ac-php-core-eldoc-setup) ;; enable eldoc
-             (add-to-list 'company-backends 'company-ac-php-backend))
+(use-package 
+  company-php 
+  :ensure t 
+  :after(ac-php php-mode) 
+  :config (company-mode t) 
+  (ac-php-core-eldoc-setup) ;; enable eldoc
+  (add-to-list 'company-backends 'company-ac-php-backend))
 
 ;; ac-php
-(use-package ac-php
-             :ensure t
-             :after php-mode
-             ;; :config
-             ;; (auto-complete-mode t)
-             ;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
-             ;; indent
-             ;; (setq indent-tabs-mode nil)
-             ;; (setq c-basic-offset 4)
-             ;; (setq php-template-compatibility nil)
-             ;; (setq ac-sources  '(ac-source-php))
-             ;; (yas-global-mode 1)
-             ;; (ac-php-core-eldoc-setup ) ;; enable eldoc
-             ;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-             ;; (subword-mode 1))
-             )
+(use-package 
+  ac-php 
+  :ensure t 
+  :after php-mode
+  ;; :config
+  ;; (auto-complete-mode t)
+  ;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
+  ;; indent
+  ;; (setq indent-tabs-mode nil)
+  ;; (setq c-basic-offset 4)
+  ;; (setq php-template-compatibility nil)
+  ;; (setq ac-sources  '(ac-source-php))
+  ;; (yas-global-mode 1)
+  ;; (ac-php-core-eldoc-setup ) ;; enable eldoc
+  ;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  ;; (subword-mode 1))
+  )
 
 (provide 'lg-php)

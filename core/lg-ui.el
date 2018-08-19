@@ -1,7 +1,7 @@
 ;;; lg-ui.el
-;; 
+;;
 ;; Copyright (c) 2018 Liubang
-;; 
+;;
 ;; Author: liubang <it.liubang@gmail.com>
 ;; Url: https://iliubang.cn
 ;; Version: 1.0
@@ -35,12 +35,10 @@
 ;; encoding
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8-unix
-      default-file-name-coding-system 'utf-8-unix
-      default-keyboard-coding-system 'utf-8-unix
-      default-process-coding-system '(utf-8-unix . utf-8-unix)
-      default-sendmail-coding-system 'utf-8-unix
-      default-terminal-coding-system 'utf-8-unix)
+(setq buffer-file-coding-system 'utf-8-unix default-file-name-coding-system 'utf-8-unix
+      default-keyboard-coding-system 'utf-8-unix default-process-coding-system '(utf-8-unix .
+                                                                                            utf-8-unix)
+      default-sendmail-coding-system 'utf-8-unix default-terminal-coding-system 'utf-8-unix)
 
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
@@ -63,38 +61,41 @@
 
 ;; theme
 ;; (load-theme 'solarized-light t)
-(use-package zenburn-theme
-             :ensure t
-             :config
-             (load-theme 'zenburn t))
+(use-package 
+  zenburn-theme 
+  :ensure t 
+  :config (load-theme 'zenburn t))
 
 ;; font
-(setq fonts
-      (cond ((eq system-type 'darwin)     '("Monaco"    "PingFang SC"))
-            ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
-            ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
+(setq fonts (cond ((eq system-type 'darwin)     
+                   '("Monaco"    "PingFang SC")) 
+                  ((eq system-type 'gnu/linux)  
+                   '("Menlo"     "WenQuanYi Zen Hei")) 
+                  ((eq system-type 'windows-nt) 
+                   '("Consolas"  "Microsoft Yahei"))))
 
-(set-face-attribute 'default nil :font
-                    (format "%s:pixelsize=%d" (car fonts) 12))
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font (frame-parameter nil 'font) charset
-                    (font-spec :family (car (cdr fonts)))))
+(set-face-attribute 'default nil 
+                    :font (format "%s:pixelsize=%d" (car fonts) 12))
+(dolist (charset '(kana han symbol cjk-misc bopomofo)) 
+  (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family (car (cdr fonts)))))
 ;; Fix chinese font width and rescale
-(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2) ("PingFang SC". 1.2)))
+(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) 
+                                ("WenQuanYi Micro Hei Mono" . 1.2) 
+                                ("PingFang SC". 1.2)))
 
 
 ;; dashboard
-(use-package dashboard
-             :ensure t
-             :config
-             (setq show-week-agenda-p t)
-             (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
-             (dashboard-setup-startup-hook))
+(use-package 
+  dashboard 
+  :ensure t 
+  :config (setq show-week-agenda-p t) 
+  (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs") 
+  (dashboard-setup-startup-hook))
 
 ;; spaceline
-(use-package spaceline
-             :ensure t
-             :config
-             (spaceline-emacs-theme))
+(use-package 
+  spaceline 
+  :ensure t 
+  :config (spaceline-emacs-theme))
 
 (provide 'lg-ui)
