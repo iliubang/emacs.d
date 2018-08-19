@@ -48,14 +48,6 @@
   (when (memq window-system '(mac ns x)) 
     (exec-path-from-shell-initialize)))
 
-;; (setenv "PATH" (concat "/usr/local/bin:"
-;;                        "~/.pyenv/shims/virtualenv"
-;;                        "~/.pyenv/bin"
-;;                        "~/.pyenv/shims"
-;;                        "~/.phpbrew/php/php-7.2.8/bin"
-;;                        "/usr/bin"
-;;                        (getenv "PATH")))
-
 ;; enable erase-buffer command
 ;; http://emacsredux.com/blog/2013/05/04/erase-buffer/
 (put 'erase-buffer 'disabled nil)
@@ -152,6 +144,14 @@
                                                   (getf autopair-extra-pairs 
                                                         :string)))) 
   :config (autopair-global-mode))
+
+;; expand-region
+(use-package 
+  expand-region 
+  :ensure t 
+  :commands(er/expand-region er/mark-word er/mark-inside-quotes er/mark-outside-quotes
+                             er/mark-inside-pairs er/mark-outside-pairs) 
+  :bind(("C-=" . er/expand-region)))
 
 ;; undo
 (use-package 

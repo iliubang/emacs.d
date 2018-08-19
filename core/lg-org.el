@@ -33,7 +33,7 @@
 ;; org
 (use-package 
   org 
-  :defer t 
+  :ensure t
   :mode ("\\.org\\'" . org-mode) 
   :bind (("C-c l" . org-store-link) 
          ("C-c a" . org-agenda) 
@@ -163,21 +163,23 @@
 
 ;; https://github.com/zweifisch/ob-http
 (use-package 
-  ob-http 
+  ob-http
+  :ensure t
   :after org 
   :defer t)
 
 ;; https://github.com/pope/ob-go
 (use-package 
-  ob-go 
+  ob-go
+  :ensure t
   :after org 
   :defer t)
 
 ;; org-bullets
 (use-package 
-  org-bullets 
+  org-bullets
+  :ensure t
   :after org 
-  :defer t 
   :config (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣"
                                           "✤" "✥")) 
   (add-hook 'org-mode-hook (lambda () 
@@ -185,14 +187,15 @@
 
 ;; htmlize
 (use-package 
-  htmlize 
-  :defer t 
+  htmlize
+  :ensure t
   :commands(htmlize-buffer htmlize-file htmlize-many-files htmlize-many-files-dired htmlize-region))
+
 ;; org-reveal
 (use-package 
-  ox-reveal 
+  ox-reveal
+  :ensure t
   :after org 
-  :defer t 
   :config (setq org-reveal-mathjax t) 
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"))
 
