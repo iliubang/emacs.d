@@ -62,8 +62,7 @@
                       (add-hook 'before-save-hook 'gofmt-before-save)))))
 
 (use-package 
-  lsp-go 
-
+  lsp-go
   :disabled 
   :defer t 
   :hook (go-mode . lsp-go-enable))

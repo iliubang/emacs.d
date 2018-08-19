@@ -67,9 +67,9 @@
   :config (load-theme 'zenburn t))
 
 ;; font
-(setq fonts (cond ((eq system-type 'darwin)     
+(setq fonts (cond ((eq system-type 'darwin) 
                    '("Monaco"    "PingFang SC")) 
-                  ((eq system-type 'gnu/linux)  
+                  ((eq system-type 'gnu/linux) 
                    '("Menlo"     "WenQuanYi Zen Hei")) 
                   ((eq system-type 'windows-nt) 
                    '("Consolas"  "Microsoft Yahei"))))
