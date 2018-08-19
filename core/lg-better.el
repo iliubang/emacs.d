@@ -151,7 +151,8 @@
   :ensure t 
   :commands(er/expand-region er/mark-word er/mark-inside-quotes er/mark-outside-quotes
                              er/mark-inside-pairs er/mark-outside-pairs) 
-  :bind(("C-=" . er/expand-region)))
+  :bind(("C-=" . er/expand-region)
+        ("C-'" . er/mark-inside-quotes)))
 
 ;; undo
 (use-package 
