@@ -1,4 +1,4 @@
-;;; lg-evil.el
+;;; lg-git.el
 ;;
 ;; Copyright (c) 2018 Liubang
 ;;
@@ -30,4 +30,10 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(provide 'lg-evil)
+(use-package 
+  magit 
+  :ensure t 
+  :commands magit-get-top-dir 
+  :defer t)
+
+(provide 'lg-git)

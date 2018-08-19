@@ -86,6 +86,7 @@
   (require-init 'lg-artist)
   (require-init 'lg-company)
   (require-init 'lg-yasnippet)
+  (require-init 'lg-git)
   ;; loading modules...
   (message "Loading modules...")
   ;; load extra modules

@@ -60,8 +60,8 @@
   :hook (python-mode . pyvenv-mode))
 
 (use-package 
-  pyenv-mode
-  :ensure t
+  pyenv-mode 
+  :ensure t 
   :hook (python-mode . pyenv-mode) 
   :commands (pyenv-mode-set pyenv-mode-unset pyenv-mode-versions) 
   :init (defun projectile-pyenv-mode-set () 
@@ -76,8 +76,9 @@
   :ensure t 
   :after python)
 
-(use-package cython-mode
-              :ensure t
-              :after python)
+(use-package 
+  cython-mode 
+  :ensure t 
+  :after python)
 
 (provide 'lg-python)
