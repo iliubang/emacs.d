@@ -10,6 +10,7 @@ This is my Emacs configuration.
 ** dependencies
 *** [[https://github.com/xcwen/phpctags][phpctags]]
 *** gtags
+*** [[https://github.com/domtronn/all-the-icons.el][all-the-icons]]
 
 #+BEGIN_SRC shell
   brew install global

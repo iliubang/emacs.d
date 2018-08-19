@@ -83,6 +83,18 @@
                                 ("WenQuanYi Micro Hei Mono" . 1.2) 
                                 ("PingFang SC". 1.2)))
 
+;; neotree
+(use-package 
+  neotree 
+  :ensure t 
+  :after all-the-icons 
+  :config (global-set-key [f4] 'neotree-toggle) 
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+
+;; all-the-icons
+(use-package 
+  all-the-icons 
+  :ensure t)
 
 ;; dashboard
 (use-package 
@@ -95,7 +107,30 @@
 ;; spaceline
 (use-package 
   spaceline 
+  :ensure t)
+
+;; spaceline-all-the-icons
+(use-package 
+  spaceline-all-the-icons 
   :ensure t 
-  :config (spaceline-emacs-theme))
+  :after spaceline 
+  :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart
+                spaceline-all-the-icons-icon-set-modified 'toggle
+                spaceline-all-the-icons-icon-set-dedicated 'pin
+                spaceline-all-the-icons-separator-type 'none
+                spaceline-all-the-icons-icon-set-flycheck-slim 'dots
+                spaceline-all-the-icons-flycheck-alternate t
+                spaceline-all-the-icons-icon-set-window-numbering 'circle
+                spaceline-all-the-icons-highlight-file-name t
+                spaceline-all-the-icons-hide-long-buffer-path t
+                spaceline-all-the-icons-separator-type 'none) 
+  (spaceline-toggle-all-the-icons-bookmark-off) 
+  (spaceline-toggle-all-the-icons-dedicated-off) 
+  (spaceline-toggle-all-the-icons-fullscreen-off) 
+  (spaceline-toggle-all-the-icons-buffer-position-on) 
+  (spaceline-toggle-all-the-icons-package-updates-off) 
+  (spaceline-all-the-icons--setup-paradox) 
+  (spaceline-all-the-icons--setup-neotree) 
+  (spaceline-all-the-icons-theme))
 
 (provide 'lg-ui)
