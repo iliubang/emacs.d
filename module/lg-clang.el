@@ -39,10 +39,14 @@
   :after company 
   :config (add-to-list 'company-backends 'company-c-headers))
 
+;; cmake-font-lock
+(use-package cmake-font-lock
+  :ensure t)
 ;; company-cmake
 (use-package 
-  cmake-mode 
-  :ensure t 
+  cmake-mode
+  :ensure t
+  :after cmake-font-lock
   :mode (("CMakeLists\\.txt\\'" . cmake-mode) 
          ("\\.cmake\\'" . cmake-mode)) 
   :preface (defun cmake/init-company () 
