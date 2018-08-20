@@ -51,7 +51,7 @@
 (global-linum-mode 1)
 (setq inhibit-splash-screen 1)
 ;; fullscreen on startup
-(setq initial-frame-alist (quote ((fullscreen . maximized))))
+;; (setq initial-frame-alist (quote ((fullscreen . maximized))))
 ;; highlight current line
 (global-hl-line-mode 1)
 
