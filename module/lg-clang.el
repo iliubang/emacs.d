@@ -62,6 +62,7 @@
 ;; https://github.com/ludwigpacifici/modern-cpp-font-lock
 (use-package 
   modern-cpp-font-lock 
+  :ensure t
   :defer t 
   :diminish modern-c++-font-lock-mode 
   :hook ((c-mode c++-mode) . modern-c++-font-lock-mode))

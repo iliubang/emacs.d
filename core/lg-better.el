@@ -90,27 +90,19 @@
 (global-set-key (kbd "C-c -") 'split-window-below)
 (global-set-key (kbd "C-c |") 'split-window-right)
 
-;; ivy
-(use-package 
-  ivy 
-  :commands (ivy-recentf ivy-read) 
-  :ensure t 
-  :diminish (ivy-mode) 
-  :bind (("C-x b" . ivy-switch-buffer)) 
-  :config (ivy-mode 1) 
-  (setq ivy-use-virtual-buffers t)
-  ;; https://github.com/abo-abo/swiper/issues/828
-  (setq ivy-display-style 'fancy)
-  ;; https://github.com/abo-abo/swiper/issues/1218
-  (setq ivy-dynamic-exhibit-delay-ms 250)
-  ;; https://oremacs.com/2017/11/30/ivy-0.10.0/
-  (setq ivy-use-selectable-prompt t))
+;; counsel
+;; it looks like counsel is a requirement for swiper
+(use-package counsel
+  :ensure t)
 
 ;; swiper
 (use-package 
   swiper 
   :ensure t 
+  :after counsel
+  :diminish (ivy-recentf ivy-read)
   :bind (("C-s" . swiper) 
+         ("C-x b" . ivy-switch-buffer)
          ("C-c C-r" . ivy-resume) 
          ("M-x" . counsel-M-x) 
          ("C-x C-f" . counsel-find-file) 
@@ -123,7 +115,16 @@
          ("C-c j" . counsel-git-grep) 
          ("C-c k" . counsel-ag) 
          ("C-c l" . counsel-locate)) 
-  :config (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+  :config 
+  (ivy-mode 1)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  (setq ivy-use-virtual-buffers t)
+  ;; https://github.com/abo-abo/swiper/issues/828
+  (setq ivy-display-style 'fancy)
+  ;; https://github.com/abo-abo/swiper/issues/1218
+  (setq ivy-dynamic-exhibit-delay-ms 250)
+  ;; https://oremacs.com/2017/11/30/ivy-0.10.0/
+  (setq ivy-use-selectable-prompt t))
 
 ;; avy
 (use-package 
