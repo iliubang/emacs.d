@@ -90,34 +90,14 @@
 (global-set-key (kbd "C-c -") 'split-window-below)
 (global-set-key (kbd "C-c |") 'split-window-right)
 
-;; counsel
-;; it looks like counsel is a requirement for swiper
-(use-package counsel
-  :ensure t)
-
-;; swiper
+;; ivy
 (use-package 
-  swiper 
+  ivy 
   :ensure t 
-  :after counsel
-  :diminish (ivy-recentf ivy-read)
-  :bind (("C-s" . swiper) 
-         ("C-x b" . ivy-switch-buffer)
-         ("C-c C-r" . ivy-resume) 
-         ("M-x" . counsel-M-x) 
-         ("C-x C-f" . counsel-find-file) 
-         ("C-h f" . counsel-describe-function) 
-         ("C-h v" . counsel-describe-variable) 
-         ("C-h l" . counsel-find-library) 
-         ("C-h i" . counsel-info-lookup-symbol) 
-         ("C-h u" . counsel-unicode-char) 
-         ("C-c g" . counsel-git) 
-         ("C-c j" . counsel-git-grep) 
-         ("C-c k" . counsel-ag) 
-         ("C-c l" . counsel-locate)) 
-  :config 
-  (ivy-mode 1)
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  :diminish (ivy-recentf ivy-read) 
+  :bind(("C-x b" . ivy-switch-buffer) 
+        ("C-c C-r" . ivy-resume)) 
+  :config(ivy-mode 1) 
   (setq ivy-use-virtual-buffers t)
   ;; https://github.com/abo-abo/swiper/issues/828
   (setq ivy-display-style 'fancy)
@@ -125,6 +105,31 @@
   (setq ivy-dynamic-exhibit-delay-ms 250)
   ;; https://oremacs.com/2017/11/30/ivy-0.10.0/
   (setq ivy-use-selectable-prompt t))
+
+;; counsel
+;; it looks like counsel is a requirement for swiper
+(use-package 
+  counsel 
+  :ensure t 
+  :bind(("M-x" . counsel-M-x) 
+        ("C-x C-f" . counsel-find-file) 
+        ("C-h f" . counsel-describe-function) 
+        ("C-h v" . counsel-describe-variable) 
+        ("C-h u" . counsel-unicode-char) 
+        ("C-h l" . counsel-find-library) 
+        ("C-c g" . counsel-git) 
+        ("C-c j" . counsel-git-grep) 
+        ("C-c k" . counsel-fzf) 
+        ("C-c l" . counsel-locate)))
+
+;; swiper
+(use-package 
+  swiper 
+  :ensure t 
+  :after counsel 
+  :diminish (ivy-recentf ivy-read) 
+  :bind (("C-s" . swiper)) 
+  :config (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
 ;; avy
 (use-package 
