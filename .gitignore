@@ -1,13 +1,10 @@
 elpa
-auto-save-list
-recentf
 gtd
 bookmarks
 semanticdb
 *.eld
-company-statistics-cache.el
 snippets
 *.dat
 custom-set-variables.el
 anaconda-mode
-eshell
+cache

@@ -46,4 +46,11 @@
             (define-key company-active-map (kbd "C-n") #'company-select-next) 
             (define-key company-active-map (kbd "C-p") #'company-select-previous)))
 
+;; company-statistics
+(use-package company-statistics
+  :after company
+  :config
+  (setq company-statistics-file (concat lg-cache-dir "/company-stats-cache.el"))
+  (company-statistics-mode))
+
 (provide 'lg-company)

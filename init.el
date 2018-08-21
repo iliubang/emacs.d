@@ -57,6 +57,7 @@
 (defvar lg-module-dir (expand-file-name "module" lg-dir))
 (defvar lg-theme-dir (expand-file-name "themes" lg-dir))
 (defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
+(defvar lg-cache-dir (expand-file-name "cache" lg-dir))
 
 ;; gtd directory
 (defvar lg-gtd-dir (expand-file-name "~/Documents/cloud/org"))

@@ -31,21 +31,21 @@
 ;; SOFTWARE.
 
 ;; http://ergoemacs.org/emacs/emacs_show_key_and_command.html
-(use-package 
-  command-log-mode 
-  :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer) 
+(use-package
+  command-log-mode
+  :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer)
   :config (setq command-log-mode-auto-show t command-log-mode-open-log-turns-on-mode t))
 
-(defun liubang/live-coding () 
-  (interactive) 
+(defun liubang/live-coding ()
+  (interactive)
   (clm/open-command-log-buffer))
 
-(defun liubang/print-path() 
-  (interactive) 
+(defun liubang/print-path()
+  (interactive)
   (message (getenv "PATH")))
 
-(use-package 
-  elisp-format 
-  :ensure t)
+(use-package elisp-format 
+  :commands(elisp-format-buffer elisp-format-file elisp-foramt-directory elisp-format-region elisp-format-directory-batch
+                                elisp-format-dired-mark-files elisp-format-library))
 
 (provide 'lg-utils)

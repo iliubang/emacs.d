@@ -43,7 +43,6 @@
 
 (use-package 
   exec-path-from-shell 
-  :ensure t 
   :config (setq exec-path-from-shell-variables '("PATH" "GOPATH" "JAVA_HOME")) 
   (when (memq window-system '(mac ns x)) 
     (exec-path-from-shell-initialize)))
@@ -59,11 +58,16 @@
 ;; warn when opening files bigger then 100MB
 (setq large-file-warning-threshold 100000000)
 
+(setq-default
+ auto-save-list-file-name (concat lg-cache-dir "/autosave"))
+
 ;; record recent files
 (use-package 
   recentf 
-  :ensure t 
-  :config (setq recentf-max-menu-items 0 recentf-max-saved-items 300 recentf-filename-handlers
+  :config (setq recentf-save-file (concat lg-cache-dir "/recentf")
+                recentf-max-menu-items 0
+                recentf-max-saved-items 300
+                recentf-filename-handlers
                 '(file-truename) recentf-exclude (list "^/tmp/" "^/ssh:" "\\.?ido\\.last$"
                                                        "\\.revive$" "/TAGS$" "^/var/folders/.+$")))
 
@@ -96,7 +100,6 @@
 ;; ivy
 (use-package 
   ivy 
-  :ensure t 
   :diminish (ivy-recentf ivy-read) 
   :bind(("C-x b" . ivy-switch-buffer) 
         ("C-c C-r" . ivy-resume)) 
@@ -113,7 +116,6 @@
 ;; it looks like counsel is a requirement for swiper
 (use-package 
   counsel 
-  :ensure t 
   :bind(("M-x" . counsel-M-x) 
         ("C-x C-f" . counsel-find-file) 
         ("C-h f" . counsel-describe-function) 
@@ -161,7 +163,6 @@
 ;; undo
 (use-package 
   undo-tree 
-  :ensure t 
   :init (global-undo-tree-mode 1)
   ;; make ctrl-z undo
   :bind(("C-z" . undo)) 
@@ -177,5 +178,29 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) 
   (require 'dired-x) 
   (setq dired-dwin-target 1))
+
+;; dired-k
+(use-package dired-k
+  :after dired
+  :config
+  (setq dired-k-style 'git)
+  (defun liubang/dired-k-highlight (orig-fn &rest args)
+    (unless (file-remote-p default-directory)
+      (apply orig-fn args)))
+  (advice-add #'dired-k--highlight :around #'liubang/dired-k-highlight)
+  (add-hook 'dired-initial-position-hook #'dired-k)
+  (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
+
+;; eshell
+(use-package eshell
+  :commands eshell-mode
+  :init
+  (setq eshell-directory-name (concat lg-cache-dir "/eshell")
+        eshell-scroll-to-bottom-on-input 'all
+        eshell-scroll-to-bottom-on-output 'all
+        eshell-buffer-shorthand t
+        eshell-kill-processes-on-exit t
+        eshell-glob-case-insensitive t
+        eshell-error-if-no-glob t))
 
 (provide 'lg-editor)
