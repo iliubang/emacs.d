@@ -136,22 +136,19 @@
 ;; avy
 (use-package 
   avy 
-  :commands(avy-goto-char-2 avy-goto-line)
-  :config
-  (setq avy-all-windows nil
-        avy-background t))
+  :commands(avy-goto-char-2 avy-goto-line) 
+  :config (setq avy-all-windows nil avy-background t))
 
-;; autopair
+;; smartparens
 (use-package 
-  autopair 
-  :init (add-hook 'emacs-lisp-mode-hook #'(lambda () 
-                                            (push '(?` . ?') 
-                                                  (getf autopair-extra-pairs 
-                                                        :comment)) 
-                                            (push '(?` . ?') 
-                                                  (getf autopair-extra-pairs 
-                                                        :string)))) 
-  :config (autopair-global-mode))
+  smartparens 
+  :config (smartparens-global-mode t) 
+  (require 'smartparens-config) 
+  (setq sp-autowrap-region nil         ; let evil-surround handle this
+        sp-highlight-pair-overlay nil sp-cancel-autoskip-on-backward-movement nil sp-show-pair-delay
+        0 sp-max-pair-length 3) 
+  (sp-local-pair '(xml-mode nxml-mode php-mode) "<!--" "-->" 
+                 :post-handlers '(("| " "SPC"))))
 
 ;; expand-region
 (use-package 
