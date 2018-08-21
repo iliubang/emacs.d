@@ -18,6 +18,13 @@ This is my Emacs configuration.
 
 *** [[https://github.com/domtronn/all-the-icons.el][all-the-icons]]
 
+*** binutils
+
+#+BEGIN_SRC shell
+  brew installbinutils
+  ln -s /usr/local/bin/gobjdump /usr/local/bin/objdump 
+#+END_SRC
+
 ** install
 
 #+BEGIN_SRC shell

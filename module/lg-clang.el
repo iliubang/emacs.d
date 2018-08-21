@@ -42,7 +42,8 @@
 ;; cmake-font-lock
 (use-package cmake-font-lock
   :ensure t)
-;; company-cmake
+
+;; cmake-mode
 (use-package 
   cmake-mode
   :ensure t
@@ -62,6 +63,10 @@
   :commands(clang-format-buffer clang-format-region) 
   :bind(("C-c i" . clang-format-region) 
         ("C-c u" . clang-format-buffer)))
+
+;; disaster
+(use-package disaster
+  :commands disaster)
 
 ;; https://github.com/ludwigpacifici/modern-cpp-font-lock
 (use-package 
