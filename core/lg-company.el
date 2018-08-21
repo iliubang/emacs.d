@@ -31,7 +31,6 @@
 
 (use-package 
   company 
-  :ensure t 
   :init (add-hook 'after-init-hook 'global-company-mode) 
   :config (progn 
             (setq company-backends (delete 'company-ropemacs company-backends)) 

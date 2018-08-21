@@ -128,7 +128,6 @@
 ;; swiper
 (use-package 
   swiper 
-  :ensure t 
   :after counsel 
   :diminish (ivy-recentf ivy-read) 
   :bind (("C-s" . swiper)) 
@@ -137,14 +136,14 @@
 ;; avy
 (use-package 
   avy 
-  :ensure t 
-  :bind(("M-g w" . avy-goto-word-1) 
-        ("M-g f" . avy-goto-line)))
+  :commands(avy-goto-char-2 avy-goto-line)
+  :config
+  (setq avy-all-windows nil
+        avy-background t))
 
 ;; autopair
 (use-package 
   autopair 
-  :ensure t 
   :init (add-hook 'emacs-lisp-mode-hook #'(lambda () 
                                             (push '(?` . ?') 
                                                   (getf autopair-extra-pairs 
@@ -157,7 +156,6 @@
 ;; expand-region
 (use-package 
   expand-region 
-  :ensure t 
   :commands(er/expand-region er/mark-word er/mark-inside-quotes er/mark-outside-quotes
                              er/mark-inside-pairs er/mark-outside-pairs) 
   :bind(("C-=" . er/expand-region) 

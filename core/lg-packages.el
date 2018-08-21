@@ -80,6 +80,7 @@
 
 ;;;;;;;;;;;;; pcakges
 (require-package 'use-package)
+(setq use-package-always-ensure t)
 (require-package 'diminish)
 
 (provide 'lg-packages)

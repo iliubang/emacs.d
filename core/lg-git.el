@@ -32,7 +32,6 @@
 
 (use-package 
   magit 
-  :ensure t 
   :commands magit-get-top-dir 
   :defer t)
 

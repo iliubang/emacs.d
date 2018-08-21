@@ -33,9 +33,10 @@
 ;; http://ergoemacs.org/emacs/emacs_show_key_and_command.html
 (use-package 
   command-log-mode 
-  :defer t 
-  :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer) 
-  :config (add-hook 'prog-mode-hook 'command-log-mode))
+  :commands(command-log-mode global-command-log-mode clm/open-command-log-buffer)
+  :config
+  (setq command-log-mode-auto-show t
+        command-log-mode-open-log-turns-on-mode t))
 
 (defun liubang/live-coding () 
   (interactive) 
@@ -44,7 +45,6 @@
 (defun liubang/print-path() 
   (interactive) 
   (message (getenv "PATH")))
-
 
 (use-package 
   elisp-format 
