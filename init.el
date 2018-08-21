@@ -81,7 +81,7 @@
   (require-init 'lg-packages)
   (require-init 'lg-utils)
   (require-init 'lg-ui)
-  (require-init 'lg-better)
+  (require-init 'lg-editor)
   (require-init 'lg-org)
   (require-init 'lg-artist)
   (require-init 'lg-company)
