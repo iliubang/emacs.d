@@ -37,7 +37,8 @@
   company-c-headers 
   :ensure t 
   :after company 
-  :config (add-to-list 'company-backends 'company-c-headers))
+  :config (add-to-list 'company-backends 'company-c-headers)
+  (setq company-c-headers-path-system '("/usr/include" "/usr/local/include" "/usr/local/include/c++/8.2.0")))
 
 ;; cmake-font-lock
 (use-package cmake-font-lock
