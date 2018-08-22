@@ -40,7 +40,9 @@
  ;; make control key do control
  mac-control-modifier 'control
  ;; make Fn key do Hyper
- ns-function-modifier 'hyper)
+ ns-function-modifier 'hyper
+ ;; makes C-n insert newlines if the point is at the end of the buffer
+ next-line-add-newlines t)
 
 ;; env
 (if (or (eq system-type 'darwin)
