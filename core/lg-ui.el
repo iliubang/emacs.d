@@ -95,7 +95,7 @@
   :config (setq neo-create-file-auto-open nil
                 neo-auto-indent-point nil
                 neo-autorefresh nil
-                neo-mode-line-type 'none
+                ;;neo-mode-line-type 'none
                 neo-window-width 25
                 neo-show-updir-line nil
                 neo-banner-message nil
