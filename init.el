@@ -53,15 +53,14 @@
 
 ;; define some directories variables.
 (defvar lg-dir (file-name-directory load-file-name))
-(defvar lg-core-dir (expand-file-name "core" lg-dir))
-(defvar lg-module-dir (expand-file-name "module" lg-dir))
-(defvar lg-theme-dir (expand-file-name "themes" lg-dir))
-(defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
-(defvar lg-cache-dir (expand-file-name "cache" lg-dir))
-(defvar lg-local-dir (expand-file-name "local" lg-dir))
-
+(defvar lg-core-dir (concat lg-dir "/core"))
+(defvar lg-module-dir (concat lg-dir "/module"))
+(defvar lg-cache-dir (concat lg-dir "/cache"))
+(defvar lg-local-dir (concat lg-dir "/local"))
+(defvar lg-custom-file (concat "/custom.el"))
+(defvar lg-theme-dir (concat lg-local-dir "/themes"))
 ;; gtd directory
-(defvar lg-gtd-dir (expand-file-name "~/Documents/cloud/org"))
+(defvar lg-gtd-dir "~/Documents/cloud/org")
 
 ;; define require-module macro
 (defmacro require-module (pkg)
@@ -98,6 +97,6 @@
 )
 
 (if (file-exists-p lg-custom-file) (load-file lg-custom-file))
-(setq custom-file (expand-file-name "custom-set-variables.el" lg-cache-dir))
+(setq custom-file (concat lg-cache-dir "/custom-set-variables.el"))
 (load custom-file :no-error)
 

@@ -132,7 +132,7 @@
 ;; spaceline-all-the-icons
 (use-package 
   spaceline-all-the-icons
-  :load-path (lambda () (expand-file-name "packages/spaceline-all-the-icons.el.git" lg-local-dir))
+  :load-path (lambda () (concat lg-local-dir "/packages/spaceline-all-the-icons.el.git"))
   :after spaceline 
   :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart
                 spaceline-all-the-icons-icon-set-modified 'toggle
