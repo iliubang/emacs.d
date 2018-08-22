@@ -35,10 +35,12 @@
 ;; encoding
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8-unix default-file-name-coding-system 'utf-8-unix
-      default-keyboard-coding-system 'utf-8-unix default-process-coding-system '(utf-8-unix .
-                                                                                            utf-8-unix)
-      default-sendmail-coding-system 'utf-8-unix default-terminal-coding-system 'utf-8-unix)
+(setq buffer-file-coding-system 'utf-8-unix
+      default-file-name-coding-system 'utf-8-unix
+      default-keyboard-coding-system 'utf-8-unix
+      default-process-coding-system '(utf-8-unix . utf-8-unix)
+      default-sendmail-coding-system 'utf-8-unix
+      default-terminal-coding-system 'utf-8-unix)
 
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
@@ -90,10 +92,18 @@
                          neo-global--with-buffer neo-global--window-exists-p) 
   :after all-the-icons 
   :init (global-set-key [f4] 'neotree-toggle) 
-  :config (setq neo-create-file-auto-open nil neo-auto-indent-point nil neo-autorefresh nil
-                neo-mode-line-type 'none neo-window-width 25 neo-show-updir-line nil
-                neo-banner-message nil neo-confirm-create-file #'off-p neo-confirm-create-directory
-                #'off-p neo-show-hidden-files nil neo-keymap-style 'concise neo-hidden-regexp-list
+  :config (setq neo-create-file-auto-open nil
+                neo-auto-indent-point nil
+                neo-autorefresh nil
+                neo-mode-line-type 'none
+                neo-window-width 25
+                neo-show-updir-line nil
+                neo-banner-message nil
+                neo-confirm-create-file #'off-p
+                neo-confirm-create-directory #'off-p
+                neo-show-hidden-files nil
+                neo-keymap-style 'concise
+                neo-hidden-regexp-list
                 '(;; vcs folders
                   "^\\.\\(git\\|hg\\|svn\\)$"
                   ;; compiled files
@@ -106,26 +116,24 @@
 
 ;; all-the-icons
 (use-package 
-  all-the-icons 
-  :ensure t)
+  all-the-icons)
 
 ;; dashboard
 (use-package 
   dashboard 
-  :ensure t 
   :config (setq show-week-agenda-p t) 
   (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs") 
   (dashboard-setup-startup-hook))
 
 ;; spaceline
 (use-package 
-  spaceline 
-  :ensure t)
+  spaceline)
 
 ;; spaceline-all-the-icons
 (use-package 
-  spaceline-all-the-icons 
-  :ensure t 
+  spaceline-all-the-icons
+;;  :load-path "~/workspace/elisp/spaceline-all-the-icons.el"
+  :load-path (lambda() (concat lg-local-dir "/packages/spaceline-all-the-icons.el"))
   :after spaceline 
   :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart
                 spaceline-all-the-icons-icon-set-modified 'toggle
@@ -141,7 +149,8 @@
   (spaceline-toggle-all-the-icons-dedicated-off) 
   (spaceline-toggle-all-the-icons-fullscreen-off) 
   (spaceline-toggle-all-the-icons-buffer-position-on) 
-  (spaceline-toggle-all-the-icons-package-updates-off) 
+  (spaceline-toggle-all-the-icons-package-updates-off)
+  (spaceline-toggle-all-the-icons-battery-status-on)
   (spaceline-all-the-icons--setup-paradox) 
   (spaceline-all-the-icons--setup-neotree) 
   (spaceline-all-the-icons-theme))
