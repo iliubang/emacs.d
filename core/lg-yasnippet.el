@@ -33,10 +33,12 @@
 ;; yasnippet
 (use-package 
   yasnippet 
-  :ensure t 
   :config
   ;; my private snippets, should be placed before enabling yasnippet
-  (setq custom-yasnippets (expand-file-name "snippets" lg-dir)) 
+  (setq custom-yasnippets (expand-file-name "snippets" lg-local-dir)
+        yas-triggers-in-field t
+        yas-also-auto-indent-first-line t
+        yas-verbosity 0) 
   (if (and (file-exists-p custom-yasnippets) 
            (not (member custom-yasnippets yas-snippet-dirs))) 
       (add-to-list 'yas-snippet-dirs custom-yasnippets)) 
@@ -57,9 +59,10 @@
 ;; https://github.com/abo-abo/auto-yasnippet
 (use-package 
   auto-yasnippet 
-  :ensure t 
-  :commands(aya-create aya-expand) 
+  :commands(aya-create aya-expand aya-open-line aya-persist-snippet) 
   :bind(("H-w" . aya-create) 
-        ("H-y" . aya-expand)))
+        ("H-y" . aya-expand))
+  :config
+  (setq aya-persist-snippets-dir (concat lg-local-dir "/auto-snippets/")))
 
 (provide 'lg-yasnippet)

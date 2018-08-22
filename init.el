@@ -58,6 +58,7 @@
 (defvar lg-theme-dir (expand-file-name "themes" lg-dir))
 (defvar lg-custom-file (expand-file-name "custom.el" lg-dir))
 (defvar lg-cache-dir (expand-file-name "cache" lg-dir))
+(defvar lg-local-dir (expand-file-name "local" lg-dir))
 
 ;; gtd directory
 (defvar lg-gtd-dir (expand-file-name "~/Documents/cloud/org"))
@@ -97,6 +98,6 @@
 )
 
 (if (file-exists-p lg-custom-file) (load-file lg-custom-file))
-(setq custom-file (expand-file-name "custom-set-variables.el" lg-dir))
+(setq custom-file (expand-file-name "custom-set-variables.el" lg-cache-dir))
 (load custom-file :no-error)
 

@@ -1,10 +1,5 @@
 elpa
-gtd
-bookmarks
-semanticdb
 *.eld
-snippets
 *.dat
-custom-set-variables.el
 anaconda-mode
 cache
