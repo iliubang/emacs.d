@@ -30,6 +30,11 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
+;; reload init file
+(defun liubang/reload-init-file()
+  (interactive)
+  (load-file (concat lg-dir "/init.el")))
+
 ;; http://ergoemacs.org/emacs/emacs_show_key_and_command.html
 (use-package
   command-log-mode
