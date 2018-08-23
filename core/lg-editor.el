@@ -155,8 +155,11 @@
   :config (smartparens-global-mode t)
   (require 'smartparens-config)
   (setq sp-autowrap-region nil         ; let evil-surround handle this
-        sp-highlight-pair-overlay nil sp-cancel-autoskip-on-backward-movement nil sp-show-pair-delay
-        0 sp-max-pair-length 3)
+        sp-highlight-pair-overlay nil
+        sp-escape-quotes-after-insert nil
+        sp-cancel-autoskip-on-backward-movement nil
+        sp-show-pair-delay 0
+        sp-max-pair-length 3)
   (sp-local-pair '(xml-mode nxml-mode php-mode) "<!--" "-->"
                  :post-handlers '(("| " "SPC"))))
 

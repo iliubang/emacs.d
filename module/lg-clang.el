@@ -31,24 +31,60 @@
 ;; SOFTWARE.
 
 ;; cc-mode
+(use-package cc-mode
+  :commands (c-mode c++-mode objc-mode java-mode)
+  :init
+  (setq-default c-basic-offset tab-width)
+  :preface
+  (defun +cc-sp-point-is-template-p(id action context)
+    (and (sp-in-code-p id action context)
+         (sp-point-after-word-p id action context)))
+  (defun +cc-sp-point-after-include-p(id action context)
+    (and (sp-in-code-p id action context)
+         (save-excursion
+           (goto-char (line-beginning-position))
+           (looking-at-p "[   ]*#include[^<]+"))))
+  :config
+  (c-toggle-electric-state -1)
+  (c-toggle-auto-newline -1)
+  (c-set-offset 'substatement-open '0) ; don't indent brackets
+  (c-set-offset 'inline-open       '+)
+  (c-set-offset 'block-open        '+)
+  (c-set-offset 'brace-list-open   '+)
+  (c-set-offset 'case-label        '+)
+  (c-set-offset 'access-label      '-)
+  (c-set-offset 'arglist-intro     '+)
+  (c-set-offset 'arglist-close     '0)
+  (setq c-tab-always-indent nil
+        c-electric-flag nil
+        ;; comment-style
+        c-doc-comment-style '((java-mode . javadoc)
+                              (pike-mode . autodoc)
+                              (c-mode    . javadoc)
+                              (c++-mode  . javadoc)))
+  (dolist (key '("#" "{" "}" "/" "*" ";" "," ":" "(" ")"))
+    (define-key c-mode-base-map key nil))
+  
+  (sp-with-modes '(c-mode c++-mode objc-mode java-mode)
+    (sp-local-pair "<" ">" :when '(+cc-sp-point-is-template-p +cc-sp-point-after-include-p))
+    (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
+    (sp-local-pair "/*" "*/" :post-handlers '(("| " "SPC") ("* ||\n[i]" "RET")))))
 
 ;; company-c-headers
 (use-package 
   company-c-headers 
-  :ensure t 
-  :after company 
+  :after (company cc-mode) 
   :config (add-to-list 'company-backends 'company-c-headers)
   (setq company-c-headers-path-system '("/usr/include" "/usr/local/include" "/usr/local/include/c++/8.2.0")))
 
 ;; cmake-font-lock
 (use-package cmake-font-lock
-  :ensure t)
+  :after (cc-mode))
 
 ;; cmake-mode
 (use-package 
   cmake-mode
-  :ensure t
-  :after cmake-font-lock
+  :after (cc-mode cmake-font-lock)
   :mode (("CMakeLists\\.txt\\'" . cmake-mode) 
          ("\\.cmake\\'" . cmake-mode)) 
   :preface (defun cmake/init-company () 
@@ -60,7 +96,6 @@
 ;; clang-format
 (use-package 
   clang-format 
-  :ensure t 
   :commands(clang-format-buffer clang-format-region) 
   :bind(("C-c i" . clang-format-region) 
         ("C-c u" . clang-format-buffer)))
@@ -72,7 +107,6 @@
 ;; https://github.com/ludwigpacifici/modern-cpp-font-lock
 (use-package 
   modern-cpp-font-lock 
-  :ensure t
   :defer t 
   :diminish modern-c++-font-lock-mode 
   :hook ((c-mode c++-mode) . modern-c++-font-lock-mode))
