@@ -54,7 +54,8 @@
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/") 
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") 
                          ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/") 
-                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                         ("marmalade" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/marmalade/")))
 ;; ini packages
 (package-initialize)
 
