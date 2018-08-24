@@ -32,6 +32,7 @@
 
 ;; auto wrap
 (setq truncate-lines nil)
+
 ;; encoding
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
@@ -55,7 +56,26 @@
 ;; fullscreen on startup
 ;; (setq initial-frame-alist (quote ((fullscreen . maximized))))
 ;; highlight current line
-(global-hl-line-mode 1)
+
+;; hl-line
+(use-package hl-line
+  :ensure nil
+  :hook ((prog-mode text-mode conf-mode) . hl-line-mode)
+  :config
+  (setq hl-line-sticky-flag nil
+        global-hl-line-sticky-flag nil)
+  (when (boundp 'display-line-numbers)
+    (defun liubang/line-range ()
+      (cons (line-beginning-position)
+            (cond ((save-excursion
+                     (goto-char (line-end-position))
+                     (and (eobp) (not (bolp))))
+                   (1- (line-end-position)))
+                  ((or (eobp) (save-excursion (forward-line) (eobp)))
+                   (line-end-position))
+                  (t
+                   (line-beginning-position 2)))))
+    (setq hl-line-range-function #'liubang/line-range)))
 
 ;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
 (setq split-height-threshold nil)
@@ -153,5 +173,11 @@
   (spaceline-all-the-icons--setup-paradox) 
   (spaceline-all-the-icons--setup-neotree) 
   (spaceline-all-the-icons-theme))
+
+;; hideshow
+(use-package hideshow
+  :ensure nil
+  :commands (hs-minor-mode hs-toggle-hiding hs-already-hidden-p)
+  :config (setq hs-hide-comments-when-hiding-all nil))
 
 (provide 'lg-ui)
