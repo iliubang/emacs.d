@@ -32,6 +32,12 @@
 
 ;; cc-mode
 (use-package cc-mode
+  :mode (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
+         ("\\.m\\'" . c-mode)
+         ("\\.c\\'" . c-mode)
+         ("\\.cpp\\'" . c++-mode)
+         ("\\.c++\\'" . c++-mode)
+         ("\\.mm\\'" . c++-mode))
   :commands (c-mode c++-mode objc-mode java-mode)
   :init
   (setq-default c-basic-offset tab-width)
@@ -103,6 +109,12 @@
 ;; disaster
 (use-package disaster
   :commands disaster)
+
+;; elf
+(use-package elf-mode
+  :load-path "~/workspace/elisp/elf-mode"
+  :load-path (lambda() (concat lg-local-dir "/packages/elf-mode.git"))
+  :magic ("ELF" . elf-mode))
 
 ;; https://github.com/ludwigpacifici/modern-cpp-font-lock
 (use-package 

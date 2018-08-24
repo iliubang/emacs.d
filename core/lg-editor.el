@@ -182,13 +182,23 @@
   (defalias 'redo 'undo-tree-redo))
 
 ;; dired
-(with-eval-after-load 'dired
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
+(use-package dired
+  :ensure nil
+  :config
+  (setq dired-recursive-copies 'always
+        dired-recursive-deletes 'always)
   (put 'dired-find-alternate-file 'disabled nil)
-  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-  (require 'dired-x)
-  (setq dired-dwin-target 1))
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
+;; dired-x
+(use-package dired-x
+  :ensure nil
+  :hook ((dired-mode . dired-omit-mode)
+         (dired-mode . dired-hide-details-mode))
+  :bind (("s-\\" . dired-jump-other-window)
+         :package dired
+         :map dired-mode-map
+         (")" . dired-omit-mode)))
 
 ;; dired-k
 (use-package dired-k
