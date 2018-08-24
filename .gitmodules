@@ -1,3 +1,6 @@
 [submodule "local/packages/spaceline-all-the-icons.el.git"]
 	path = local/packages/spaceline-all-the-icons.el.git
 	url = https://github.com/iliubang/spaceline-all-the-icons.el.git
+[submodule "local/packages/elf-mode.git"]
+	path = local/packages/elf-mode.git
+	url = https://github.com/iliubang/elf-mode.git
