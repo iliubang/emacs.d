@@ -112,9 +112,8 @@
 
 ;; elf
 (use-package elf-mode
-  :load-path "~/workspace/elisp/elf-mode"
   :load-path (lambda() (concat lg-local-dir "/packages/elf-mode.git"))
-  :magic ("ELF" . elf-mode))
+  :commands (elf-mode))
 
 ;; https://github.com/ludwigpacifici/modern-cpp-font-lock
 (use-package 
