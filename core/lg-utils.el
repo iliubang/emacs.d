@@ -49,8 +49,52 @@
   (interactive)
   (message (getenv "PATH")))
 
-(use-package elisp-format 
+(use-package elisp-format
   :commands(elisp-format-buffer elisp-format-file elisp-foramt-directory elisp-format-region elisp-format-directory-batch
                                 elisp-format-dired-mark-files elisp-format-library))
+
+;; copy-line
+(defun liubang/copy-line (arg) 
+  "Copy lines (as many as prefix argument) in the kill ring" 
+  (interactive "p") 
+  (kill-ring-save (line-beginning-position) 
+                  (line-beginning-position (+ 1 arg))) 
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
+;; quick-copy-line
+(defun liubang/quick-copy-line ()
+  "Copy the whole line that point is on and move to the beginning of the next line.
+    Consecutive calls to this command append each line to the
+    kill-ring."
+  (interactive)
+  (let ((beg (line-beginning-position 1))
+        (end (line-beginning-position 2)))
+    (if (eq last-command 'quick-copy-line)
+        (kill-append
+         (buffer-substring
+          beg
+          end)
+         (< end beg))
+      (kill-new
+       (buffer-substring
+        beg
+        end))))
+  (beginning-of-line 2))
+
+;; duplicate current line
+(defun liubang/duplicate-current-line (&optional n)
+  "duplicate current line, make more than 1 copy given a numeric argument"
+  (interactive "p")
+  (save-excursion (let ((nb (or n 1))
+                        (current-line (thing-at-point 'line)))
+                    ;; when on last line, insert a newline first
+                    (when (or (= 1 (forward-line 1))
+                              (eq (point)
+                                  (point-max)))
+                      (insert "\n"))
+                    ;; now insert as many time as requested
+                    (while (> n 0)
+                      (insert current-line)
+                      (decf n)))))
 
 (provide 'lg-utils)

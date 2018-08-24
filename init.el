@@ -92,7 +92,7 @@
   (message "Loading modules...")
   ;; load extra modules
   (require-module 'lg-clang)
-  ;; (require-module 'lg-python)
+  (require-module 'lg-assembly)
   (require-module 'lg-php)
 )
 

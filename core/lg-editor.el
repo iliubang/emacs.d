@@ -59,6 +59,7 @@
 ;; http://emacsredux.com/blog/2013/05/04/erase-buffer/
 (put 'erase-buffer 'disabled nil)
 (global-set-key (kbd "C-c e")  'erase-buffer)
+(global-set-key (kbd "H-SPC")  'set-mark-command)
 
 ;; Always load newest byte code.
 (setq load-prefer-newer t)
