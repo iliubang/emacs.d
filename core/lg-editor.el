@@ -201,16 +201,18 @@
          (")" . dired-omit-mode)))
 
 ;; dired-k
-(use-package dired-k
-  :after dired
-  :config
-  (setq dired-k-style 'git)
-  (defun liubang/dired-k-highlight (orig-fn &rest args)
-    (unless (file-remote-p default-directory)
-      (apply orig-fn args)))
-  (advice-add #'dired-k--highlight :around #'liubang/dired-k-highlight)
-  (add-hook 'dired-initial-position-hook #'dired-k)
-  (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
+;; dired-k kills git processes before they can release index.lock
+;; https://github.com/syohex/emacs-dired-k/issues/45
+;; (use-package dired-k
+;;   :after dired
+;;   :config
+;;   (setq dired-k-style 'git)
+;;   (defun liubang/dired-k-highlight (orig-fn &rest args)
+;;     (unless (file-remote-p default-directory)
+;;       (apply orig-fn args)))
+;;   (advice-add #'dired-k--highlight :around #'liubang/dired-k-highlight)
+;;   (add-hook 'dired-initial-position-hook #'dired-k)
+;;   (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
 
 ;; eshell
 (use-package eshell

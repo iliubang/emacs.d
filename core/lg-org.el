@@ -32,13 +32,14 @@
 
 ;; org
 (use-package 
-  org 
-  :ensure t 
+  org
+  :commands org-mode
   :mode ("\\.org\\'" . org-mode) 
   :bind (("C-c l" . org-store-link) 
          ("C-c a" . org-agenda) 
          ("C-c c" . org-capture) 
-         ("C-c b" . org-iswitchb)) 
+         ("C-c b" . org-iswitchb)
+         ("C-c C-c" . org-edit-src-exit)) 
   :config (progn
             ;; agenda toto keywords
             (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)") 
@@ -164,38 +165,37 @@
 ;; https://github.com/zweifisch/ob-http
 (use-package 
   ob-http 
-  :ensure t 
   :after org 
   :defer t)
 
 ;; https://github.com/pope/ob-go
 (use-package 
   ob-go 
-  :ensure t 
   :after org 
   :defer t)
 
 ;; org-bullets
 (use-package 
-  org-bullets 
-  :ensure t 
-  :after org 
+  org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :after org
+  :commands org-bullets-mode
   :config (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣"
-                                          "✤" "✥")) 
-  (add-hook 'org-mode-hook (lambda () 
-                             (org-bullets-mode 1))))
+                                          "✤" "✥")))
+
+;; toc-org
+(use-package toc-org
+  :commands toc-org-enable)
 
 ;; htmlize
 (use-package 
   htmlize 
-  :ensure t 
   :commands(htmlize-buffer htmlize-file htmlize-many-files htmlize-many-files-dired htmlize-region))
 
 ;; org-reveal
 (use-package 
-  ox-reveal 
-  :ensure t 
-  :after org 
+  ox-reveal
+  :defer t
   :config (setq org-reveal-mathjax t) 
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"))
 
