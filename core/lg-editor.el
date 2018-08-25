@@ -51,9 +51,10 @@
 
 (use-package
   exec-path-from-shell
-  :config (setq exec-path-from-shell-variables '("PATH" "GOPATH" "JAVA_HOME"))
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  :if (memq window-system '(mac ns))
+  :config
+  (setq exec-path-from-shell-variables '("PATH" "GOPATH" "JAVA_HOME"))
+  (exec-path-from-shell-initialize))
 
 ;; enable erase-buffer command
 ;; http://emacsredux.com/blog/2013/05/04/erase-buffer/

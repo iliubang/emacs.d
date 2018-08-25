@@ -49,18 +49,19 @@
 ;; custom ui
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-;; show cursor position within line
-(column-number-mode 1)
-(global-linum-mode 1)
-(setq inhibit-splash-screen 1)
-;; fullscreen on startup
-;; (setq initial-frame-alist (quote ((fullscreen . maximized))))
-;; highlight current line
+
+(setq inhibit-splash-screen 1
+      ;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
+      split-height-threshold nil
+      split-width-threshold 0
+      ;; fullscreen on startup
+      initial-frame-alist (quote ((fullscreen . maximized))))
 
 ;; hl-line
 (use-package hl-line
   :ensure nil
   :hook ((prog-mode text-mode conf-mode) . hl-line-mode)
+  :hook ((prog-mode text-mode) . display-line-numbers-mode)
   :config
   (setq hl-line-sticky-flag nil
         global-hl-line-sticky-flag nil)
@@ -77,16 +78,16 @@
                    (line-beginning-position 2)))))
     (setq hl-line-range-function #'liubang/line-range)))
 
-;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
-
 ;; theme
-;; (load-theme 'solarized-light t)
-(use-package 
-  zenburn-theme 
-  :ensure t 
-  :config (load-theme 'zenburn t))
+(use-package
+  doom-themes
+  :config
+  (load-theme 'doom-one t)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
+;; (use-package 
+;;   zenburn-theme 
+;;   :config (load-theme 'zenburn t))
 
 ;; font
 (setq fonts (cond ((eq system-type 'darwin) 
@@ -111,28 +112,7 @@
   :commands(neotree-show neotree-hide neotree-toggle neotree-dir neotree-find
                          neo-global--with-buffer neo-global--window-exists-p) 
   :after all-the-icons 
-  :init (global-set-key [f4] 'neotree-toggle) 
-  :config (setq neo-create-file-auto-open nil
-                neo-auto-indent-point nil
-                neo-autorefresh nil
-                ;;neo-mode-line-type 'none
-                neo-window-width 25
-                neo-show-updir-line nil
-                neo-banner-message nil
-                neo-confirm-create-file #'off-p
-                neo-confirm-create-directory #'off-p
-                neo-show-hidden-files nil
-                neo-keymap-style 'concise
-                neo-hidden-regexp-list
-                '(;; vcs folders
-                  "^\\.\\(git\\|hg\\|svn\\)$"
-                  ;; compiled files
-                  "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
-                  ;; generated files, caches or local pkgs
-                  "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
-                  ;; org-mode folders
-                  "^\\.\\(sync\\|export\\|attach\\)$" "~$" "^#.*#$")) 
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  :init (global-set-key [f4] 'neotree-toggle))
 
 ;; all-the-icons
 (use-package 
@@ -140,7 +120,7 @@
 
 ;; dashboard
 (use-package 
-  dashboard 
+  dashboard
   :config (setq show-week-agenda-p t) 
   (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs") 
   (dashboard-setup-startup-hook))
@@ -150,29 +130,29 @@
   spaceline)
 
 ;; spaceline-all-the-icons
-(use-package 
-  spaceline-all-the-icons
+(use-package                                                                              
+  spaceline-all-the-icons                                                                 
   :load-path (lambda () (concat lg-local-dir "/packages/spaceline-all-the-icons.el.git"))
-  :after spaceline 
-  :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart
-                spaceline-all-the-icons-icon-set-modified 'toggle
-                spaceline-all-the-icons-icon-set-dedicated 'pin
-                spaceline-all-the-icons-separator-type 'none
-                spaceline-all-the-icons-icon-set-flycheck-slim 'dots
-                spaceline-all-the-icons-flycheck-alternate t
-                spaceline-all-the-icons-icon-set-window-numbering 'circle
-                spaceline-all-the-icons-highlight-file-name t
-                spaceline-all-the-icons-hide-long-buffer-path t
-                spaceline-all-the-icons-separator-type 'none) 
-  (spaceline-toggle-all-the-icons-bookmark-off) 
-  (spaceline-toggle-all-the-icons-dedicated-off) 
-  (spaceline-toggle-all-the-icons-fullscreen-off) 
-  (spaceline-toggle-all-the-icons-buffer-position-on) 
-  (spaceline-toggle-all-the-icons-package-updates-off)
-  (spaceline-toggle-all-the-icons-battery-status-on)
-  (spaceline-all-the-icons--setup-paradox) 
-  (spaceline-all-the-icons--setup-neotree) 
-  (spaceline-all-the-icons-theme))
+  :after spaceline                                                                        
+  :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart                          
+                spaceline-all-the-icons-icon-set-modified 'toggle                         
+                spaceline-all-the-icons-icon-set-dedicated 'pin                           
+                spaceline-all-the-icons-separator-type 'none                             
+                spaceline-all-the-icons-icon-set-flycheck-slim 'dots                      
+                spaceline-all-the-icons-flycheck-alternate t                              
+                spaceline-all-the-icons-icon-set-window-numbering 'circle                 
+                spaceline-all-the-icons-highlight-file-name t                             
+                spaceline-all-the-icons-hide-long-buffer-path t                           
+                spaceline-all-the-icons-separator-type 'none)                             
+  (spaceline-toggle-all-the-icons-bookmark-off)                                           
+  (spaceline-toggle-all-the-icons-dedicated-off)                                          
+  (spaceline-toggle-all-the-icons-fullscreen-off)                                         
+  (spaceline-toggle-all-the-icons-buffer-position-on)                                     
+  (spaceline-toggle-all-the-icons-package-updates-off)                                    
+  (spaceline-toggle-all-the-icons-battery-status-on)                                   
+  (spaceline-all-the-icons--setup-paradox)                                                
+  (spaceline-all-the-icons--setup-neotree)                                                
+  (spaceline-all-the-icons-theme))                                                        
 
 ;; hideshow
 (use-package hideshow
