@@ -85,74 +85,75 @@
   (load-theme 'doom-one t)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
-;; (use-package 
-;;   zenburn-theme 
+;; (use-package
+;;   zenburn-theme
 ;;   :config (load-theme 'zenburn t))
 
 ;; font
-(setq fonts (cond ((eq system-type 'darwin) 
-                   '("Monaco"    "PingFang SC")) 
-                  ((eq system-type 'gnu/linux) 
-                   '("Menlo"     "WenQuanYi Zen Hei")) 
-                  ((eq system-type 'windows-nt) 
-                   '("Consolas"  "Microsoft Yahei"))))
-
-(set-face-attribute 'default nil 
-                    :font (format "%s:pixelsize=%d" (car fonts) 12))
-(dolist (charset '(kana han symbol cjk-misc bopomofo)) 
-  (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family (car (cdr fonts)))))
-;; Fix chinese font width and rescale
-(setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2) 
-                                ("WenQuanYi Micro Hei Mono" . 1.2) 
-                                ("PingFang SC". 1.2)))
+(if window-system
+    (progn
+      (setq fonts (cond ((eq system-type 'darwin) 
+                                       '("Monaco"    "PingFang SC")) 
+                                      ((eq system-type 'gnu/linux) 
+                                       '("Menlo"     "WenQuanYi Zen Hei")) 
+                                      ((eq system-type 'windows-nt) 
+                                       '("Consolas"  "Microsoft Yahei"))))
+      (set-face-attribute 'default nil 
+                          :font (format "%s:pixelsize=%d" (car fonts) 12))
+      (dolist (charset '(kana han symbol cjk-misc bopomofo))
+        (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family (car (cdr fonts)))))
+      ;; Fix chinese font width and rescale
+      (setq face-font-rescale-alist '(("Microsoft Yahei" . 1.2)
+                                      ("WenQuanYi Micro Hei Mono" . 1.2) 
+                                      ("PingFang SC". 1.2)))))
 
 ;; neotree
-(use-package 
-  neotree 
+(use-package
+  neotree
   :commands(neotree-show neotree-hide neotree-toggle neotree-dir neotree-find
-                         neo-global--with-buffer neo-global--window-exists-p) 
-  :after all-the-icons 
+                         neo-global--with-buffer neo-global--window-exists-p)
+  :after all-the-icons
   :init (global-set-key [f4] 'neotree-toggle))
 
 ;; all-the-icons
-(use-package 
+(use-package
   all-the-icons)
 
 ;; dashboard
-(use-package 
+(use-package
   dashboard
-  :config (setq show-week-agenda-p t) 
-  (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs") 
+  :config (setq show-week-agenda-p t)
+  (setq dashboard-banner-logo-title "Welcome to Liubang's Emacs")
   (dashboard-setup-startup-hook))
 
 ;; spaceline
-(use-package 
+(use-package
   spaceline)
 
 ;; spaceline-all-the-icons
-(use-package                                                                              
-  spaceline-all-the-icons                                                                 
+(use-package
+  spaceline-all-the-icons
   :load-path (lambda () (concat lg-local-dir "/packages/spaceline-all-the-icons.el.git"))
-  :after spaceline                                                                        
-  :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart                          
-                spaceline-all-the-icons-icon-set-modified 'toggle                         
-                spaceline-all-the-icons-icon-set-dedicated 'pin                           
-                spaceline-all-the-icons-separator-type 'none                             
-                spaceline-all-the-icons-icon-set-flycheck-slim 'dots                      
-                spaceline-all-the-icons-flycheck-alternate t                              
-                spaceline-all-the-icons-icon-set-window-numbering 'circle                 
-                spaceline-all-the-icons-highlight-file-name t                             
-                spaceline-all-the-icons-hide-long-buffer-path t                           
-                spaceline-all-the-icons-separator-type 'none)                             
-  (spaceline-toggle-all-the-icons-bookmark-off)                                           
-  (spaceline-toggle-all-the-icons-dedicated-off)                                          
-  (spaceline-toggle-all-the-icons-fullscreen-off)                                         
-  (spaceline-toggle-all-the-icons-buffer-position-on)                                     
-  (spaceline-toggle-all-the-icons-package-updates-off)                                    
-  (spaceline-toggle-all-the-icons-battery-status-on)                                   
-  (spaceline-all-the-icons--setup-paradox)                                                
-  (spaceline-all-the-icons--setup-neotree)                                                
-  (spaceline-all-the-icons-theme))                                                        
+  :after spaceline
+  :config (setq spaceline-all-the-icons-icon-set-bookmark 'heart
+                spaceline-all-the-icons-icon-set-modified 'toggle
+                spaceline-all-the-icons-icon-set-dedicated 'pin
+                spaceline-all-the-icons-separator-type 'none
+                spaceline-all-the-icons-icon-set-flycheck-slim 'dots
+                spaceline-all-the-icons-flycheck-alternate t
+                spaceline-all-the-icons-icon-set-window-numbering 'circle
+                spaceline-all-the-icons-highlight-file-name t
+                spaceline-all-the-icons-hide-long-buffer-path t
+                spaceline-all-the-icons-separator-type 'none)
+  (spaceline-toggle-all-the-icons-bookmark-off)
+  (spaceline-toggle-all-the-icons-dedicated-off)
+  (spaceline-toggle-all-the-icons-fullscreen-off)
+  (spaceline-toggle-all-the-icons-buffer-position-on)
+  (spaceline-toggle-all-the-icons-package-updates-off)
+  (spaceline-toggle-all-the-icons-battery-status-on)
+  (spaceline-all-the-icons--setup-paradox)
+  (spaceline-all-the-icons--setup-neotree)
+  (spaceline-all-the-icons-theme))
 
 ;; hideshow
 (use-package hideshow
