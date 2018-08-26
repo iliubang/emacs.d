@@ -92,14 +92,16 @@
 ;; font
 (if window-system
     (progn
-      (setq fonts (cond ((eq system-type 'darwin) 
-                                       '("Monaco"    "PingFang SC")) 
-                                      ((eq system-type 'gnu/linux) 
-                                       '("Monaco"    "Microsoft Yahei")) 
-                                      ((eq system-type 'windows-nt) 
-                                       '("Consolas"  "Microsoft Yahei"))))
+      (setq fonts (cond ((eq system-type 'darwin)
+                         '("Monaco"    "PingFang SC"))
+                        ((eq system-type 'gnu/linux) 
+                         '("Monaco"    "Microsoft Yahei"))))
+
+      (setq font-size (cond ((eq system-type 'darwin) 12)
+                            ((eq system-type 'gnu/linux) 14)))
+      
       (set-face-attribute 'default nil 
-                          :font (format "%s:pixelsize=%d" (car fonts) 12))
+                          :font (format "%s:pixelsize=%d" (car fonts) font-size))
       (dolist (charset '(kana han symbol cjk-misc bopomofo))
         (set-fontset-font (frame-parameter nil 'font) charset (font-spec :family (car (cdr fonts)))))
       ;; Fix chinese font width and rescale
