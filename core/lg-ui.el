@@ -95,7 +95,7 @@
       (setq fonts (cond ((eq system-type 'darwin) 
                                        '("Monaco"    "PingFang SC")) 
                                       ((eq system-type 'gnu/linux) 
-                                       '("Menlo"     "WenQuanYi Zen Hei")) 
+                                       '("Monaco"    "Microsoft Yahei")) 
                                       ((eq system-type 'windows-nt) 
                                        '("Consolas"  "Microsoft Yahei"))))
       (set-face-attribute 'default nil 
