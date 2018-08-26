@@ -81,9 +81,9 @@
   company-c-headers 
   :after (company cc-mode) 
   :config (add-to-list 'company-backends 'company-c-headers)
-  (setq company-c-headers-path-system '("/usr/include" "/usr/local/include" "/usr/local/include/c++/8.2.0"))
+  (setq company-c-headers-path-system '("/usr/include" "/usr/local/include"))
   (cond ((eq system-type 'darwin) (add-to-list 'company-c-headers-path-system "/usr/local/include/c++/8.2.0"))
-        ((eq system-type 'gnu/linux) (add-to-list 'company-c-headers-path-system "/usr/local/include/c++/7"))))
+        ((eq system-type 'gnu/linux) (add-to-list 'company-c-headers-path-system "/usr/include/c++/7"))))
 
 ;; cmake-font-lock
 (use-package cmake-font-lock
