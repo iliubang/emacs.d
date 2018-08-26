@@ -25,6 +25,10 @@ This is my Emacs configuration.
   ln -s /usr/local/bin/gobjdump /usr/local/bin/objdump 
 #+END_SRC
 
+** fonts
+
+If you are using linux, make sure ~Monaco~ and ~Microsoft Yahei~ fonts have been installed. 
+
 ** install
 
 #+BEGIN_SRC shell
