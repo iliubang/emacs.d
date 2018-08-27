@@ -61,8 +61,14 @@
 (use-package hl-line
   :ensure nil
   :hook ((prog-mode text-mode conf-mode) . hl-line-mode)
-  :hook ((prog-mode text-mode) . display-line-numbers-mode)
   :config
+   (if (version<= "26.0.50" emacs-version)
+      (progn
+        (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+        (add-hook 'text-mode-hook #'display-line-numbers-mode))
+    (progn
+      (add-hook 'prog-mode-hook #'linum-mode)
+      (add-hook 'text-mode-hook #'linum-mode)))
   (setq hl-line-sticky-flag nil
         global-hl-line-sticky-flag nil)
   (when (boundp 'display-line-numbers)
