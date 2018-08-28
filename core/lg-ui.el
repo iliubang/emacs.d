@@ -62,15 +62,20 @@
   :ensure nil
   :hook ((prog-mode text-mode conf-mode) . hl-line-mode)
   :config
-   (if (version<= "26.0.50" emacs-version)
+  (if (version<= "26.0.50" emacs-version)
       (progn
         (add-hook 'prog-mode-hook #'display-line-numbers-mode)
         (add-hook 'text-mode-hook #'display-line-numbers-mode))
-    (progn
-      (add-hook 'prog-mode-hook #'linum-mode)
-      (add-hook 'text-mode-hook #'linum-mode)))
+      (progn
+        (add-hook 'prog-mode-hook #'linum-mode)
+        (add-hook 'text-mode-hook #'linum-mode)))
+  ;; hlinum
+  (use-package hlinum
+     :config
+     (hlinum-activate))
   (setq hl-line-sticky-flag nil
-        global-hl-line-sticky-flag nil)
+        global-hl-line-sticky-flag nil
+        linum-format " %3d ")
   (when (boundp 'display-line-numbers)
     (defun liubang/line-range ()
       (cons (line-beginning-position)
