@@ -108,7 +108,7 @@
                         ((eq system-type 'gnu/linux) 
                          '("Monaco"    "Microsoft Yahei"))))
 
-      (setq font-size (cond ((eq system-type 'darwin) 12)
+      (setq font-size (cond ((eq system-type 'darwin) 14)
                             ((eq system-type 'gnu/linux) 14)))
       
       (set-face-attribute 'default nil 
