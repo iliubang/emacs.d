@@ -250,7 +250,8 @@
          ("s-<mouse-1>"   . mc/add-cursor-on-click)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)
          :map mc/keymap
-         ("C-|" . mc/vertical-align-with-space)))
+         ("C-|" . mc/vertical-align-with-space))
+  :config (setq mc/list-file (concat lg-cache-dir "/.mc-lists.el")))
 
 ;; undo
 (use-package
