@@ -33,6 +33,14 @@
 ;; auto wrap
 (setq truncate-lines nil)
 
+;; Don't open a file in a new frame
+(when (boundp 'ns-pop-up-frames)
+  (setq ns-pop-up-frames nil))
+
+;; Don't use GTK+ tooltip
+(when (boundp 'x-gtk-use-system-tooltips)
+  (setq x-gtk-use-system-tooltips nil))
+
 ;; encoding
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
@@ -49,6 +57,13 @@
 ;; custom ui
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+;; Mouse & Smooth Scroll
+;; Scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
+(setq scroll-step 1
+      scroll-margin 0
+      scroll-conservatively 100000)
 
 (setq inhibit-splash-screen 1
       ;; https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal
@@ -69,6 +84,7 @@
       (progn
         (add-hook 'prog-mode-hook #'linum-mode)
         (add-hook 'text-mode-hook #'linum-mode)))
+  
   ;; hlinum
   (use-package hlinum
      :config
@@ -147,5 +163,13 @@
 (use-package doom-modeline
   :defer t
   :hook (after-init . doom-modeline-init))
+
+;; Display Time
+(use-package time
+  :ensure nil
+  :hook (after-init . display-time-mode)
+  :init
+  (setq display-time-24hr-format t)
+  (setq display-time-day-and-date t))
 
 (provide 'lg-ui)
