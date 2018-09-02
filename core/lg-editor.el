@@ -89,10 +89,11 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; default indent
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq-default c-basic-offset 4)
+;; Tab and Space
+;; Permanently indent with spaces, never with TABs
+(setq-default c-basic-offset   4
+              tab-width        4
+              indent-tabs-mode nil)
 
 ;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
@@ -107,10 +108,26 @@
 (global-set-key (kbd "C-c -") 'split-window-below)
 (global-set-key (kbd "C-c |") 'split-window-right)
 
+;; Delete selection if you insert
+(use-package delsel
+  :ensure nil
+  :hook (after-init . delete-selection-mode))
+
+;; Rectangle
+(use-package rect
+  :ensure nil
+  :bind (("<C-return>" . rectangle-mark-mode)))
+
+;; Automatically reload files was modified by external program
+(use-package autorevert
+  :ensure nil
+  :diminish auto-revert-mode
+  :hook (after-init . global-auto-revert-mode))
+
 ;; ivy
-(use-package
-  ivy
+(use-package ivy
   :diminish (ivy-recentf ivy-read)
+  :hook (after-init . avy-setup-default)
   :bind(("C-x b" . ivy-switch-buffer)
         ("C-c C-r" . ivy-resume))
   :config(ivy-mode 1)
@@ -121,6 +138,16 @@
   (setq ivy-dynamic-exhibit-delay-ms 250)
   ;; https://oremacs.com/2017/11/30/ivy-0.10.0/
   (setq ivy-use-selectable-prompt t))
+
+;; Show number of matches in mode-line while searching
+(use-package anzu
+  :diminish anzu-mode
+  :bind (([remap query-replace] . anzu-query-replace)
+         ([remap query-replace-regexp] . anzu-query-replace-regexp)
+         :map isearch-mode-map
+         ([remap isearch-query-replace] . anzu-isearch-query-replace)
+         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
+  :hook (after-init . global-anzu-mode))
 
 ;; counsel
 ;; it looks like counsel is a requirement for swiper
@@ -151,6 +178,20 @@
   :commands(avy-goto-char-2 avy-goto-line)
   :config (setq avy-all-windows nil avy-background t))
 
+;; Jump to Chinese characters
+(use-package ace-pinyin
+  :diminish ace-pinyin-mode
+  :hook (after-init . ace-pinyin-global-mode))
+
+;; Drag stuff (lines, words, region, etc...) around
+(use-package drag-stuff
+  :diminish drag-stuff-mode
+  :commands drag-stuff-define-keys
+  :hook (after-init . drag-stuff-global-mode)
+  :config
+  (add-to-list 'drag-stuff-except-modes 'org-mode)
+  (drag-stuff-define-keys))
+
 ;; smartparens
 (use-package
   smartparens
@@ -172,6 +213,44 @@
                              er/mark-inside-pairs er/mark-outside-pairs)
   :bind(("C-=" . er/expand-region)
         ("C-'" . er/mark-inside-quotes)))
+
+;; Smartly select region, rectangle, multi cursors
+(use-package smart-region
+  :hook (after-init . smart-region-on))
+
+;; Goto last change
+(use-package goto-chg
+  :bind ("C-," . goto-last-change))
+
+;; An all-in-one comment command to rule them all
+(use-package comment-dwim-2
+  :bind ("M-;" . comment-dwim-2))
+
+;; Hungry deletion
+(use-package hungry-delete
+  :diminish hungry-delete-mode
+  :hook (after-init . global-hungry-delete-mode)
+  :config (setq-default hungry-delete-chars-to-skip " \t\f\v"))
+
+;; Hideshow
+(use-package hideshow
+  :ensure nil
+  :bind (:map hs-minor-mode-map
+              ("C-`" . hs-toggle-hiding))
+  :diminish hs-minor-mode)
+
+;; Multiple cursors
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c"   . mc/edit-lines)
+         ("C->"           . mc/mark-next-like-this)
+         ("C-<"           . mc/mark-previous-like-this)
+         ("C-c C-<"       . mc/mark-all-like-this)
+         ("C-M->"         . mc/skip-to-next-like-this)
+         ("C-M-<"         . mc/skip-to-previous-like-this)
+         ("s-<mouse-1>"   . mc/add-cursor-on-click)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         :map mc/keymap
+         ("C-|" . mc/vertical-align-with-space)))
 
 ;; undo
 (use-package

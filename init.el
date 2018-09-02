@@ -85,6 +85,7 @@
 (let ((file-name-handler-alist nil))
   (message "Loading core...")
   ;; load core...
+  (require-init 'lg-const)
   (require-init 'lg-packages)
   (require-init 'lg-utils)
   (require-init 'lg-ui)
