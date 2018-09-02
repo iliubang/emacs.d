@@ -100,6 +100,7 @@
   (require-module 'lg-clang)
   (require-module 'lg-assembly)
   (require-module 'lg-php)
+  (require-module 'lg-lua)
 )
 
 (if (file-exists-p lg-custom-file) (load-file lg-custom-file))
