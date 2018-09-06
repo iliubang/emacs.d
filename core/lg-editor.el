@@ -95,6 +95,12 @@
               tab-width        4
               indent-tabs-mode nil)
 
+;; c-default-style
+(setq c-default-style
+      '((java-mode . "java")
+        (awk-mode . "awk")
+        (other . "linux")))
+
 ;; http://pragmaticemacs.com/emacs/dont-kill-buffer-kill-this-buffer-instead/
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 ;; kill buffer without my confirmation
